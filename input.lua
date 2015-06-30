@@ -1,16 +1,26 @@
 function UpdatePlayer(p,dt)
+	
+	dx = 0
+	dy = 0
 
 	if love.keyboard.isDown('a','left') then
-		p.x = p.x - (PACE * dt)
+		dx = - (PACE * dt)
+		p.x = p.x + dx
 	elseif love.keyboard.isDown('d','right') then
-		p.x = p.x + (PACE * dt)
+		dx = (PACE * dt)
+		p.x = p.x + dx
 	end
 	
 	if love.keyboard.isDown('w','up') then
-		p.y = p.y - (PACE * dt)
+		dy = - (PACE * dt)
+		p.y = p.y + dy
 	elseif love.keyboard.isDown('s','down') then
-		p.y = p.y + (PACE * dt)
+		dy = (PACE * dt)
+		p.y = p.y + dy
 	end
+	
+	p.direction = math.deg(math.atan2(dy, dx))
+	-- it would be nice if player's direction didn't change when they stood still. Current math makes you face right if you don't move. 
 	
 	p.attackTimer = p.attackTimer - dt
 	if p.attackTimer <= 0 then
@@ -18,7 +28,7 @@ function UpdatePlayer(p,dt)
 	end
 	
 	if love.keyboard.isDown(' ') and p.canAttack == true then
-		sword = {player = p, theta = 0}
+		sword = {player = p, theta = 0, offset = p.direction}
 		table.insert(Swords, sword)
 		
 		-- Disable attack and set timer

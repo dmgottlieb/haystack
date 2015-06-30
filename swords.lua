@@ -1,5 +1,5 @@
 function DrawSword(s)
-	radians = math.rad(s.theta)
+	radians = math.rad(s.theta + s.offset)
 	
 	direction = {x = math.cos(radians), y = math.sin(radians)}
 	

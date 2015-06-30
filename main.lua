@@ -21,7 +21,7 @@ function love.load()
 	NPCs = MakeCharacters(NUM_NPCS)
 	Swords = {}
 	
-	P1 = {x = WIDTH / 2, y = HEIGHT / 2, canAttack = true, attackTimer = ATTACK_TIMER_MAX}
+	P1 = {x = WIDTH / 2, y = HEIGHT / 2, direction = 0, canAttack = true, attackTimer = ATTACK_TIMER_MAX}
 	
 	
 end
