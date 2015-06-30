@@ -6,7 +6,7 @@ require"walk"
 NUM_NPCS = 25
 WIDTH = 640
 HEIGHT = 480
-PACE = 10
+PACE = 5
 
 
 function love.load()

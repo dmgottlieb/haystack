@@ -9,7 +9,10 @@
 
 function Walk(c, dt, pace)
 	
-	c.x = c.x + math.random(0,pace) - pace / 2
-	c.y = c.y + math.random(0,pace) - pace / 2
+	c.x = c.x + c.momentum.x
+	c.y = c.y + c.momentum.y
+	
+	c.momentum.x = c.momentum.x + math.random(0,pace) - pace / 2
+	c.momentum.y = c.momentum.y + math.random(0,pace) - pace / 2
 	
 end
