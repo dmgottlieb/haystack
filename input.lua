@@ -12,5 +12,19 @@ function UpdatePlayer(p,dt)
 		p.y = p.y + (PACE * dt)
 	end
 	
+	p.attackTimer = p.attackTimer - dt
+	if p.attackTimer <= 0 then
+		p.canAttack = true
+	end
+	
+	if love.keyboard.isDown(' ') and p.canAttack == true then
+		sword = {player = p, theta = 0}
+		table.insert(Swords, sword)
+		
+		-- Disable attack and set timer
+		p.canAttack = false
+		p.attackTimer = ATTACK_TIMER_MAX
+	end
+	
 	
 end

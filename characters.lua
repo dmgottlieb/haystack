@@ -2,7 +2,7 @@ function DrawCharacter(x,y)
 	-- Draw a character centered at given coordinates
 	
 	love.graphics.setColor(0,0,100)
-	love.graphics.circle('fill', x, y, 10, 20)
+	love.graphics.circle('fill', x, y, SIZE, 20)
 	
 end
 
