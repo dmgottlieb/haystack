@@ -3,12 +3,12 @@ require"setup"
 require"walk"
 require"input"
 require"swords"
+require"collisions"
 
-
-NUM_NPCS = 10
+NUM_NPCS = 20
 WIDTH = 640
 HEIGHT = 480
-PACE = 40
+PACE = 50
 ATTACK_TIMER_MAX = 2.0
 SIZE = 10 -- character size
 SWORD_LENGTH = 20
@@ -36,6 +36,9 @@ end
 
 function love.update(dt)
 	
+	-- Collisions
+	DoCharacterCollisions(NPCs)
+	
 	for i, c in ipairs(NPCs) do
 		Walk(c, dt, PACE)
 	end
@@ -43,6 +46,8 @@ function love.update(dt)
 	-- Player input logic goes here
 	UpdatePlayer(P1,dt)
 	UpdateSwords(Swords, dt)
+	
+
 	
 	
 end

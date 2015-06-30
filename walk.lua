@@ -1,6 +1,6 @@
 
 
--- Moves a character to a new position. Characters use a random walk. 
+-- Moves a character to a new position. 
 
 -- To do
 --
@@ -19,8 +19,8 @@ function Walk(c, dt, pace)
 	c.y = math.max(c.y, 25)
 	c.y = math.min(c.y, HEIGHT - 25)
 	
-	c.momentum.x = c.momentum.x + math.random(-0.5, 0.5)
-	c.momentum.y = c.momentum.y + math.random(-0.5, 0.5)
+	c.momentum.x = c.momentum.x + math.random(-0.5, 0.5)*10
+	c.momentum.y = c.momentum.y + math.random(-0.5, 0.5)*10
 	
 end
 
