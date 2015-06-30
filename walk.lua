@@ -1,18 +1,30 @@
+
+
 -- Moves a character to a new position. Characters use a random walk. 
 
 -- To do
 --
--- 1. Random walk is too jittery. Implement a model with a little bit of memory.
+-- 1. Improve walking model
 -- 2. Prevent collisions.
 -- 3. Bound them within the screen area. 
 	
 
 function Walk(c, dt, pace)
 	
-	c.x = c.x + c.momentum.x
-	c.y = c.y + c.momentum.y
+	c.x = c.x + pace * (sigmoid(c.momentum.x) - 0.5) * dt
+	c.y = c.y + pace * (sigmoid(c.momentum.y) - 0.5) * dt
 	
-	c.momentum.x = c.momentum.x + math.random(0,pace) - pace / 2
-	c.momentum.y = c.momentum.y + math.random(0,pace) - pace / 2
+	c.x = math.max(c.x, 25)
+	c.x = math.min(c.x, WIDTH - 25)
+	c.y = math.max(c.y, 25)
+	c.y = math.min(c.y, HEIGHT - 25)
 	
+	c.momentum.x = c.momentum.x + math.random(-0.5, 0.5)
+	c.momentum.y = c.momentum.y + math.random(-0.5, 0.5)
+	
+end
+
+function sigmoid(x)
+	val = 1 / (1 + math.exp(-x))
+	return val
 end
