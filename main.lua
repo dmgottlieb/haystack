@@ -13,23 +13,24 @@ ATTACK_TIMER_MAX = 2.0
 SIZE = 10 -- character size
 SWORD_LENGTH = 20
 SWORD_SWEEP = 540
+DEBUG = true
 
 
 function love.load()
 	
 	love.graphics.setBackgroundColor(190,190,210)
-	NPCs = MakeCharacters(NUM_NPCS)
+	Characters = MakeCharacters(NUM_NPCS)
 	Swords = {}
 	
-	P1 = {x = WIDTH / 2, y = HEIGHT / 2, direction = 0, canAttack = true, attackTimer = ATTACK_TIMER_MAX}
+	P1 = {x = WIDTH / 2, y = HEIGHT / 2, direction = 0, canAttack = true, attackTimer = ATTACK_TIMER_MAX, momentum={x=0, y=0}, color = {r=100,g=100,b=100}, PC = true}
+	table.insert(Characters,P1)
 	
 	
 end
 
 function love.draw(dt)
 
-	DrawCharacters(NPCs)
-	DrawCharacter(P1.x, P1.y)
+	DrawCharacters(Characters)
 	DrawSwords(Swords)
 
 end
@@ -37,9 +38,9 @@ end
 function love.update(dt)
 	
 	-- Collisions
-	DoCharacterCollisions(NPCs)
+	DoCharacterCollisions(Characters)
 	
-	for i, c in ipairs(NPCs) do
+	for i, c in ipairs(Characters) do
 		Walk(c, dt, PACE)
 	end
 	

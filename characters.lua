@@ -1,8 +1,8 @@
-function DrawCharacter(x,y)
+function DrawCharacter(c)
 	-- Draw a character centered at given coordinates
 	
-	love.graphics.setColor(0,0,100)
-	love.graphics.circle('fill', x, y, SIZE, 20)
+	love.graphics.setColor(c.color.r,c.color.g,c.color.b)
+	love.graphics.circle('fill', c.x, c.y, SIZE, 20)
 	
 end
 
@@ -15,9 +15,10 @@ function MakeCharacters(N)
 
 	for i = 1, N do
 		
-		characters[i] = {x = math.random(25, xrange), y = math.random(25, yrange), momentum = {x=0, y=0}}
+		characters[i] = {x = math.random(25, xrange), y = math.random(25, yrange), momentum = {x=0, y=0}, color = {r=100,g=100,b=100}, PC = false}
 		
 	end
+	
 	
 	return characters
 	
@@ -25,9 +26,10 @@ end
 
 function DrawCharacters(characters)
 	
+	
 	for i, c in ipairs(characters) do
 		
-		DrawCharacter(c.x,c.y)
+		DrawCharacter(c)
 		
 	end
 	
