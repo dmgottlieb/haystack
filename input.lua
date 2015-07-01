@@ -2,24 +2,8 @@ function UpdatePlayer(p,dt)
 	
 	dx = 0
 	dy = 0
-
-	-- if love.keyboard.isDown('a','left') then
-	-- 	dx = - (PACE * dt)
-	-- 	p.x = p.x + dx
-	-- elseif love.keyboard.isDown('d','right') then
-	-- 	dx = (PACE * dt)
-	-- 	p.x = p.x + dx
-	-- end
-	--
-	-- if love.keyboard.isDown('w','up') then
-	-- 	dy = - (PACE * dt)
-	-- 	p.y = p.y + dy
-	-- elseif love.keyboard.isDown('s','down') then
-	-- 	dy = (PACE * dt)
-	-- 	p.y = p.y + dy
-	-- end
 	
-	p.direction = math.deg(math.atan2(dy, dx))
+	p.direction = math.deg(math.atan2(p.momentum.y, p.momentum.x))
 	-- it would be nice if player's direction didn't change when they stood still. Current math makes you face right if you don't move. 
 	
 	p.attackTimer = p.attackTimer - dt
