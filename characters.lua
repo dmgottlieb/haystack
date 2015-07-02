@@ -19,7 +19,7 @@ function MakeCharacters(N)
 
 	for i = 1, N do
 		
-		characters[i] = {x = math.random(25, xrange), y = math.random(25, yrange), momentum = {x=0, y=0}, color = {r=100,g=100,b=100}, PC = false}
+		characters[i] = {x = math.random(25, xrange), y = math.random(25, yrange), momentum = {x=0, y=0}, direction = 0, color = {r=100,g=100,b=100}, PC = false}
 		
 	end
 	

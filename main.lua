@@ -7,7 +7,7 @@ require"collisions"
 require"controllers"
 require"score"
 
-NUM_NPCS = 15
+NUM_NPCS = 30
 WIDTH = 640
 HEIGHT = 480
 PACE = 50
@@ -16,6 +16,7 @@ SIZE = 10 -- character size
 SWORD_LENGTH = 20
 SWORD_SWEEP = 540
 DEBUG = true
+FLOCK_NEIGHBORHOOD = 50
 
 
 function love.load()
