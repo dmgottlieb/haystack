@@ -36,3 +36,4 @@ function UpdateSword(s, dt)
 	s.theta = s.theta + dt * SWORD_SWEEP
 	
 end
+

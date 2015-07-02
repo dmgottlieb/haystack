@@ -49,6 +49,7 @@ function love.update(dt)
 	
 	-- Collisions
 	DoCharacterCollisions(Characters)
+	DoSwordCollisions(Swords, Characters)
 	
 	for i, c in ipairs(Characters) do
 		Walk(c, dt, PACE)
