@@ -19,14 +19,19 @@ function Walk(c, dt, pace)
 		c.momentum.y = c.momentum.y + math.random(-0.5, 0.5)*10
 	else 
 		c.momentum = GetPlayerMomentum(c)
-		print(c.momentum.x)
 	end
-			
-		
+	
+	if norm(c.momentum.x, c.momentum.y) > 0 then
+		c.direction = math.deg(math.atan2(c.momentum.y, c.momentum.x))	
+	end
 	
 end
 
 function sigmoid(x)
 	val = 1 / (1 + math.exp(-x))
 	return val
+end
+
+function norm(x,y)
+	return x^2 + y^2
 end

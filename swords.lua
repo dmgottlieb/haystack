@@ -7,6 +7,7 @@ function DrawSword(s)
 	tip = {x = s.player.x + (SIZE + SWORD_LENGTH) * direction.x, y = s.player.y + (SIZE + SWORD_LENGTH) * direction.y}
 	
 	love.graphics.setColor(255,255,255)
+	love.graphics.setLineWidth(3)
 	love.graphics.line(hilt.x, hilt.y, tip.x, tip.y)
 end
 

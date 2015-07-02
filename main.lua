@@ -20,6 +20,9 @@ DEBUG = true
 function love.load()
 	
 	love.graphics.setBackgroundColor(190,190,210)
+	
+	SheepImage = love.graphics.newImage("assets/sheep-s.png")
+	
 	Characters = MakeCharacters(NUM_NPCS)
 	Swords = {}
 	
