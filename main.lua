@@ -4,8 +4,9 @@ require"walk"
 require"input"
 require"swords"
 require"collisions"
+require"controllers"
 
-NUM_NPCS = 20
+NUM_NPCS = 4
 WIDTH = 640
 HEIGHT = 480
 PACE = 50
@@ -22,8 +23,10 @@ function love.load()
 	Characters = MakeCharacters(NUM_NPCS)
 	Swords = {}
 	
-	P1 = {x = WIDTH / 2, y = HEIGHT / 2, direction = 0, canAttack = true, attackTimer = ATTACK_TIMER_MAX, momentum={x=0, y=0}, color = {r=100,g=100,b=100}, PC = true}
+	P1 = {x = WIDTH / 2 - 100, y = HEIGHT / 2 - 100, direction = 0, canAttack = true, attackTimer = ATTACK_TIMER_MAX, momentum={x=0, y=0}, color = {r=100,g=100,b=100}, PC = true, controller=1}
+    P2 = {x = WIDTH / 2 + 100, y = HEIGHT / 2 + 100, direction = 0, canAttack = true, attackTimer = ATTACK_TIMER_MAX, momentum={x=0, y=0}, color = {r=100,g=100,b=100}, PC = true, controller=2}
 	table.insert(Characters,P1)
+	table.insert(Characters,P2)
 	
 	
 end
@@ -46,6 +49,7 @@ function love.update(dt)
 	
 	-- Player input logic goes here
 	UpdatePlayer(P1,dt)
+	UpdatePlayer(P2,dt)
 	UpdateSwords(Swords, dt)
 	
 

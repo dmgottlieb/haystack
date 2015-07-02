@@ -26,17 +26,8 @@ end
 function GetPlayerMomentum(p)
 	dx, dy = 0,0
 	
-	if love.keyboard.isDown('a','left') then
-		dx = -1
-	elseif love.keyboard.isDown('d','right') then
-		dx = 1
-	end
-	
-	if love.keyboard.isDown('w','up') then
-		dy = -1
-	elseif love.keyboard.isDown('s','down') then
-		dy = 1
-	end
+	dx = RightPush(p) - LeftPush(p)
+	dy = DownPush(p) - UpPush(p)
 	
 	return {x = 1.2*PACE*dx, y = 1.2*PACE*dy}
 	
