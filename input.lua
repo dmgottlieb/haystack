@@ -11,7 +11,7 @@ function UpdatePlayer(p,dt)
 		p.canAttack = true
 	end
 	
-	if love.keyboard.isDown(' ') and p.canAttack == true then
+	if SwordButton(p) and p.canAttack == true then
 		sword = {player = p, theta = 0, offset = p.direction}
 		table.insert(Swords, sword)
 		

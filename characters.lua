@@ -4,6 +4,7 @@ function DrawCharacter(c)
 	-- love.graphics.setColor(c.color.r,c.color.g,c.color.b)
 	-- love.graphics.circle('fill', c.x, c.y, SIZE, 20)
 	
+	love.graphics.setColor(255,255,255)
 	love.graphics.draw(SheepImage, c.x, c.y, math.rad(c.direction), 1,1, 26, 15)
 
 	

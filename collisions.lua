@@ -41,9 +41,7 @@ function Distance(x1, y1, x2, y2)
 end
 
 function DoCharacterCollisions(C)
-	
-	collisions = {}
-	
+		
 	for i, c in ipairs(C) do
 		
 		for j = (i+1),table.getn(C) do
@@ -69,12 +67,6 @@ function DoCharacterCollisions(C)
 				c.momentum.x, c.momentum.y = c.momentum.x - projectionc.x, c.momentum.y - projectionc.y
 				d.momentum.x, d.momentum.y = d.momentum.x - projectiond.x, d.momentum.y - projectiond.y
 				
-				-- if DEBUG then
-				-- 	normal_angle = math.deg(math.atan2(normal.y, normal.x))
-				-- 	sword = {player = c, theta = 0, offset = normal_angle }
-				-- 	table.insert(Swords, sword)
-				-- end
-				
 			end
 			
 			
@@ -84,6 +76,12 @@ function DoCharacterCollisions(C)
 		DoWallCollision(c)
 		
 	end
+	
+end
+
+function DoSwordCollisions(S)
+	
+	
 	
 end
 
