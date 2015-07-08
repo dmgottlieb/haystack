@@ -1,6 +1,5 @@
 require"characters"
 require"setup"
-require"walk"
 require"input"
 require"swords"
 require"collisions"
@@ -60,7 +59,7 @@ function love.update(dt)
 	DoSwordCollisions(Swords, Characters)
 	
 	for i, c in ipairs(Characters) do
-		Walk(c, dt, PACE)
+		c:walk(dt, PACE)
 	end
 	
 	-- Player input logic goes here
