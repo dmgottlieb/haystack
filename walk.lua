@@ -2,15 +2,20 @@
 
 function Walk(c, dt, pace)
 	
-	c.x = c.x + pace * (sigmoid(c.momentum.x) - 0.5) * dt
-	c.y = c.y + pace * (sigmoid(c.momentum.y) - 0.5) * dt
+	c.x = c.x + (c.momentum.x) * dt
+	c.y = c.y + (c.momentum.y) * dt
 	
 	if not c.PC then
-		-- c.momentum.x = c.momentum.x + math.random(-0.5, 0.5)*10
-		-- c.momentum.y = c.momentum.y + math.random(-0.5, 0.5)*10
-		c.momentum = SheepFlock(c)
+		c.momentum = SheepFlock(c,dt)
+		if math.random(0,1) < SHEEP_INITIATIVE * dt then
+			direction = math.rad(math.random(0,359.9))
+			c.momentum.x = c.momentum.x + 0.1*math.cos(direction)
+			c.momentum.y = c.momentum.y + 0.1*math.sin(direction)
+		end
 	else 
 		c.momentum = GetPlayerMomentum(c)
+		c.momentum.x = c.momentum.x*pace
+		c.momentum.y = c.momentum.y*pace
 	end
 	
 	if norm(c.momentum.x, c.momentum.y) > 0 then
@@ -29,7 +34,7 @@ function norm(x,y)
 end
 
 -- implements the boids algorithm
-function SheepFlock(c)
+function SheepFlock(c,dt)
 
 	neighbors = {}
 	
@@ -51,32 +56,36 @@ function SheepFlock(c)
 	cohesion = {x = 0, y = 0}
 	for i,d in ipairs(neighbors) do 
 		displacement = {x = d.x - c.x, y = d.y - c.y}
-		cohesion.x, cohesion.y = 0.01 * (displacement.x / N) + cohesion.x, 0.01 * (displacement.y / N) + cohesion.y
+		cohesion.x, cohesion.y = FLOCK_COHESION * (displacement.x / N)*dt + cohesion.x, FLOCK_COHESION * (displacement.y / N)*dt + cohesion.y
 	end
 	
 	-- alignment
 	alignment = {x = 0, y = 0}
 	for i,d in ipairs(neighbors) do 
-		alignment.x, alignment.y = 0.125 * (d.momentum.x / N) + alignment.x, 0.125 * (d.momentum.y / N) + alignment.y
+		alignment.x, alignment.y = (d.momentum.x / N) + alignment.x, (d.momentum.y / N) + alignment.y
 	end
+	alignment.x, alignment.y = FLOCK_ALIGNMENT * (alignment.x - c.momentum.x) * dt, FLOCK_ALIGNMENT * (alignment.y - c.momentum.y) * dt
 	
 	-- separation
 	separation = {x = 0, y = 0}
 	close_neighbors = {}
 	
 	for i,d in ipairs(neighbors) do
-		if Distance(c.x, c.y, d.x, d.y) < (FLOCK_NEIGHBORHOOD / 2) then
+		if Distance(c.x, c.y, d.x, d.y) < (FLOCK_SEPARATION * FLOCK_NEIGHBORHOOD) then
 			table.insert(close_neighbors, d)
 		end
 	end
 	
 	for i,d in ipairs (close_neighbors) do 
 		displacement = {x = d.x - c.x, y = d.y - c.y}
-		separation.x, separation.y = -displacement.x + separation.x, -displacement.y + separation.y
+		separation.x, separation.y = -displacement.x*dt + separation.x, -displacement.y*dt + separation.y
 	end
 	
 	-- combination of velocities
-	return {x = c.momentum.x + cohesion.x + alignment.x + separation.x, y = c.momentum.y + cohesion.y + alignment.y + separation.y}
+	v = {x = c.momentum.x + cohesion.x + alignment.x + separation.x, y = c.momentum.y + cohesion.y + alignment.y + separation.y}
+	-- normalize to unit vector * PACE
+	n = norm(v.x, v.y) / PACE
+	return {x = v.x / n, y = v.y / n}
 	
 	
 end

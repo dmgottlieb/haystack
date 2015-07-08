@@ -29,6 +29,6 @@ function GetPlayerMomentum(p)
 	dx = RightPush(p) - LeftPush(p)
 	dy = DownPush(p) - UpPush(p)
 	
-	return {x = 1.2*PACE*dx, y = 1.2*PACE*dy}
+	return {x = dx, y = dy}
 	
 end

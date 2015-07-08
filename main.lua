@@ -8,15 +8,21 @@ require"controllers"
 require"score"
 
 NUM_NPCS = 30
-WIDTH = 640
-HEIGHT = 480
-PACE = 50
+WIDTH = 1280
+HEIGHT = 800
+PACE = 100
 ATTACK_TIMER_MAX = 2.0
 SIZE = 10 -- character size
 SWORD_LENGTH = 20
 SWORD_SWEEP = 540
 DEBUG = true
-FLOCK_NEIGHBORHOOD = 50
+
+
+FLOCK_NEIGHBORHOOD = 100
+FLOCK_COHESION = 0.1
+FLOCK_SEPARATION = 0.5
+FLOCK_ALIGNMENT = 0.125
+SHEEP_INITIATIVE = 0.0001
 
 
 function love.load()
@@ -49,7 +55,7 @@ end
 function love.update(dt)
 	
 	-- Collisions
-	DoCharacterCollisions(Characters)
+	--DoCharacterCollisions(Characters)
 	DoSwordCollisions(Swords, Characters)
 	
 	for i, c in ipairs(Characters) do
