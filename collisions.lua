@@ -94,6 +94,7 @@ function DoSwordCollisions(S, C)
 					
 					if c.PC == true then
 						s.player.score = s.player.score + 1
+						c.Respawn()
 					end
 					
 					table.remove(C,j)
