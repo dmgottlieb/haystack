@@ -19,7 +19,7 @@ DEBUG = true
 
 
 FLOCK_NEIGHBORHOOD = 100
-FLOCK_COHESION = 0.1
+FLOCK_COHESION = 0.01
 FLOCK_SEPARATION = 0.5
 FLOCK_ALIGNMENT = 0.125
 SHEEP_INITIATIVE = 0.0001
@@ -55,7 +55,7 @@ end
 function love.update(dt)
 	
 	-- Collisions
-	--DoCharacterCollisions(Characters)
+	DoCharacterCollisions(Characters)
 	DoSwordCollisions(Swords, Characters)
 	
 	for i, c in ipairs(Characters) do

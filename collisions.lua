@@ -58,9 +58,9 @@ function DoCharacterCollisions(C)
 				normal = {x = d.x - c.x, y = d.y - c.y}
 				
 				-- project c.momentum onto normal vector
-				coeff_c = (c.momentum.x * normal.x + c.momentum.y * normal.y) / (normal.x * normal.x + normal.y * normal.y)
+				coeff_c = math.min(0,(c.momentum.x * normal.x + c.momentum.y * normal.y) / (normal.x * normal.x + normal.y * normal.y))
 				projectionc = {x = coeff_c * normal.x, y = coeff_c * normal.y}
-				coeff_d = (d.momentum.x * normal.x + d.momentum.y * normal.y) / (normal.x * normal.x + normal.y * normal.y)
+				coeff_d = math.min(0,(d.momentum.x * normal.x + d.momentum.y * normal.y) / (normal.x * normal.x + normal.y * normal.y))
 				projectiond = {x = coeff_d * normal.x, y = coeff_d * normal.y}
 
 				
