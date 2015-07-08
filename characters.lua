@@ -5,8 +5,7 @@ Character =
 	y = 0, 
 	momentum = {x=0, y=0}, 
 	direction = 0, 
-	color = {r=100,g=100,b=100}, 
-	PC = false
+	color = {r=100,g=100,b=100}
 }
 
 function Character:new()
@@ -37,6 +36,14 @@ function Character:draw()
 	end
 	
 end
+
+-- NPC prototype inherits Character prototype
+NPC = Character:new()
+NPC.PC = false
+
+-- PC prototype inherits Character prototype
+PC = Character:new()
+PC.PC = true
 
 
 function MakeCharacters(N)
