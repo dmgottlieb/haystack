@@ -5,6 +5,10 @@ function Walk(c, dt, pace)
 	c.x = c.x + (c.momentum.x) * dt
 	c.y = c.y + (c.momentum.y) * dt
 	
+	if norm(c.momentum.x, c.momentum.y) > 0 then
+		c.direction = math.deg(math.atan2(c.momentum.y, c.momentum.x))	
+	end
+	
 	if not c.PC then
 		c.momentum = SheepFlock(c,dt)
 		if math.random(0,1) < SHEEP_INITIATIVE * dt then
@@ -18,9 +22,7 @@ function Walk(c, dt, pace)
 		c.momentum.y = c.momentum.y*pace
 	end
 	
-	if norm(c.momentum.x, c.momentum.y) > 0 then
-		c.direction = math.deg(math.atan2(c.momentum.y, c.momentum.x))	
-	end
+
 	
 end
 
