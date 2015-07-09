@@ -43,7 +43,7 @@ local function sigmoid(x)
 end
 
 local function norm(x,y)
-	return x^2 + y^2
+	return math.sqrt(x^2 + y^2)
 end
 
 function Character:walk(dt, pace)
@@ -118,7 +118,7 @@ function Character:SheepFlock(dt)
 	-- combination of velocities
 	v = {x = self.momentum.x + cohesion.x + alignment.x + separation.x, y = self.momentum.y + cohesion.y + alignment.y + separation.y}
 	-- normalize to unit vector * PACE
-	n = (norm(v.x, v.y) / PACE) + 0.01
+	n = (norm(v.x, v.y) / PACE)
 	return {x = v.x / n, y = v.y / n}
 	
 	

@@ -6,22 +6,23 @@ require"swords"
 require"collisions"
 require"controllers"
 require"score"
+require"Vector"
 
 NUM_NPCS = 30
 NUM_PCS = 0
 WIDTH = 1280
 HEIGHT = 800
-PACE = 100
+PACE = 50
 ATTACK_TIMER_MAX = 2.0
 SIZE = 10 -- character size
 SWORD_LENGTH = 20
 SWORD_SWEEP = 540
-DEBUG = false
+DEBUG = true
 
 
 FLOCK_NEIGHBORHOOD = 150
 FLOCK_COHESION = 0.01
-FLOCK_SEPARATION = 0.25
+FLOCK_SEPARATION = 0.5
 FLOCK_ALIGNMENT = 0.125
 SHEEP_INITIATIVE = 0
 
