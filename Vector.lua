@@ -19,6 +19,11 @@ function Vector:__sub(rhs)
 	return self + (- rhs)
 end
 
+-- v * w will return the dot product
+function Vector:__mul(rhs)
+	return self.x * rhs.x + self.y * rhs.y
+end
+
 function Vector:norm()
 	return math.sqrt(self.x^2 + self.y^2)
 end
