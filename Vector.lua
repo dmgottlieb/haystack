@@ -23,6 +23,10 @@ function Vector:norm()
 	return math.sqrt(self.x^2 + self.y^2)
 end
 
+function Vector:distance(w)
+	return (w - self):norm()
+end
+
 function Vector:new(x,y)
 	local o = {}
 	setmetatable(o, self)
@@ -37,7 +41,3 @@ end
 
 
 
-
-function Vector:distance(w)
-	return (w - self):norm()
-end
