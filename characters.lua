@@ -1,19 +1,22 @@
-require"Character"
+require"NPC"
 
 function MakeCharacters(N)
 	
 	characters = {}
 
-	xrange = love.graphics.getWidth() - 50
-	yrange = love.graphics.getHeight() - 50
+	xrange = WIDTH - 50
+	yrange = HEIGHT - 50
+	
+	math.randomseed( os.time() )
 
 	for i = 1, N do
 		
-		x = math.random(25, xrange)
-		y = math.random(25, yrange)
-		characters[i] = Character:new()
-		characters[i].x = x
-		characters[i].y = y
+		x = math.random(50, xrange)
+		y = math.random(50, yrange)
+		c = NPC:new()
+		c.x = x
+		c.y = y
+		table.insert(characters, c)
 		
 	end
 	

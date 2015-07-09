@@ -55,18 +55,13 @@ function Character:walk(dt, pace)
 		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x))	
 	end
 	
-	if not self.PC then
-		self.momentum = self:SheepFlock(dt)
-		if math.random(0,1) < SHEEP_INITIATIVE * dt then
-			direction = math.rad(math.random(0,359.9))
-			self.momentum.x = self.momentum.x + 0.1*math.cos(direction)
-			self.momentum.y = self.momentum.y + 0.1*math.sin(direction)
-		end
-	else 
-		self.momentum = GetPlayerMomentum(self)
-		self.momentum.x = self.momentum.x*pace
-		self.momentum.y = self.momentum.y*pace
+	self.momentum = self:SheepFlock(dt)
+	if math.random(0,1) < SHEEP_INITIATIVE * dt then
+		direction = math.rad(math.random(0,359.9))
+		self.momentum.x = self.momentum.x + 0.1*math.cos(direction)
+		self.momentum.y = self.momentum.y + 0.1*math.sin(direction)
 	end
+
 	
 
 	
@@ -123,7 +118,7 @@ function Character:SheepFlock(dt)
 	-- combination of velocities
 	v = {x = self.momentum.x + cohesion.x + alignment.x + separation.x, y = self.momentum.y + cohesion.y + alignment.y + separation.y}
 	-- normalize to unit vector * PACE
-	n = norm(v.x, v.y) / PACE
+	n = (norm(v.x, v.y) / PACE) + 0.01
 	return {x = v.x / n, y = v.y / n}
 	
 	
