@@ -13,8 +13,10 @@ require"Vector"
 function love.load(arg)
 	
 	LoadParameters()
+	WIDTH = love.graphics.getWidth()
+	HEIGHT = love.graphics.getHeight()
 	
-	love.graphics.setBackgroundColor(75,200,95)
+	love.graphics.setBackgroundColor(100,225,85)
 	font = love.graphics.newFont("assets/pcsenior.ttf", 24)
 	love.graphics.setFont(font)
 	

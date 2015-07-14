@@ -1,7 +1,5 @@
 NUM_NPCS = 15
 NUM_PCS = 0
-WIDTH = 1280
-HEIGHT = 800
 PACE = 50
 ATTACK_TIMER_MAX = 2.0
 SIZE = 10 -- character size
