@@ -8,27 +8,11 @@ require"controllers"
 require"score"
 require"Vector"
 
-NUM_NPCS = 15
-NUM_PCS = 0
-WIDTH = 1280
-HEIGHT = 800
-PACE = 50
-ATTACK_TIMER_MAX = 2.0
-SIZE = 10 -- character size
-SWORD_LENGTH = 20
-SWORD_SWEEP = 540
-DEBUG = false
-
-
-FLOCK_NEIGHBORHOOD = 150
-FLOCK_COHESION = 0.5
-FLOCK_SEPARATION = 0.5
-FLOCK_ALIGNMENT = 0.125
-SHEEP_INITIATIVE = 0
-
 
 
 function love.load(arg)
+	
+	LoadParameters()
 	
 	love.graphics.setBackgroundColor(75,200,95)
 	font = love.graphics.newFont("assets/pcsenior.ttf", 24)
@@ -46,6 +30,17 @@ function love.load(arg)
 
 	
 	
+end
+
+function LoadParameters()
+	-- loads all parameters. 
+	-- Default parameters are loaded from defaults.lua. 
+	-- Since parameters.lua is run afterwards, values in this file override those in defaults.lua. 
+	-- This is useful to me because I can have a tracked file with all the parameters (defaults.lua), and also try out changes in an untracked file (parameters.lua)
+	defaults = love.filesystem.load('defaults.lua')
+	parameters = love.filesystem.load('parameters.lua')
+	defaults()
+	parameters()
 end
 
 function love.draw(dt)
