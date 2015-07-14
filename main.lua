@@ -8,7 +8,7 @@ require"controllers"
 require"score"
 require"Vector"
 
-NUM_NPCS = 30
+NUM_NPCS = 100
 NUM_PCS = 0
 WIDTH = 1280
 HEIGHT = 800
@@ -17,11 +17,11 @@ ATTACK_TIMER_MAX = 2.0
 SIZE = 10 -- character size
 SWORD_LENGTH = 20
 SWORD_SWEEP = 540
-DEBUG = true
+DEBUG = false
 
 
 FLOCK_NEIGHBORHOOD = 150
-FLOCK_COHESION = 0.01
+FLOCK_COHESION = 0.0825
 FLOCK_SEPARATION = 0.5
 FLOCK_ALIGNMENT = 0.125
 SHEEP_INITIATIVE = 0
@@ -30,7 +30,7 @@ SHEEP_INITIATIVE = 0
 
 function love.load(arg)
 	
-	love.graphics.setBackgroundColor(190,190,210)
+	love.graphics.setBackgroundColor(75,200,95)
 	font = love.graphics.newFont("assets/pcsenior.ttf", 24)
 	love.graphics.setFont(font)
 	
