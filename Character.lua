@@ -116,9 +116,14 @@ function Character:SheepFlock(dt)
 	end
 	
 	-- combination of velocities
-	v = {x = self.momentum.x + cohesion.x + alignment.x + separation.x, y = self.momentum.y + cohesion.y + alignment.y + separation.y}
+	x = self.momentum.x + cohesion.x + alignment.x + separation.x
+	y = self.momentum.y + cohesion.y + alignment.y + separation.y
+	v = Vector:new(x,y)
+	
 	-- normalize to unit vector * PACE
-	n = (norm(v.x, v.y) / PACE)
+	n = math.max(1,v:norm()) / PACE
+
+	
 	return {x = v.x / n, y = v.y / n}
 	
 	
