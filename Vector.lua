@@ -43,6 +43,10 @@ function Vector:new(x,y)
 	return o
 end
 
-
+function Vector:scale(k)
+	x = k * self.x
+	y = k * self.y
+	return Vector:new{x,y}
+end
 
 
