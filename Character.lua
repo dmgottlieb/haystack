@@ -115,9 +115,29 @@ function Character:SheepFlock(dt)
 		separation.x, separation.y = -displacement.x*dt + separation.x, -displacement.y*dt + separation.y
 	end
 	
+	-- soft stay-in-bounds
+	bounding = Vector:new(0,0)
+	Xmin, Xmax, Ymin, Ymax = 0 + 50, WIDTH - 50, 0 + 50, HEIGHT - 50
+	
+	if self.x < Xmin then
+		bounding.x = 10
+	end
+	
+	if self.x > Xmax then
+		bounding.x = -10
+	end
+	
+	if self.y < Ymin then
+		bounding.y = 10
+	end
+	
+	if self.y > Ymax then 
+		bounding.y = -10
+	end
+	
 	-- combination of velocities
-	x = self.momentum.x + cohesion.x + alignment.x + separation.x
-	y = self.momentum.y + cohesion.y + alignment.y + separation.y
+	x = self.momentum.x + cohesion.x + alignment.x + separation.x + bounding.x
+	y = self.momentum.y + cohesion.y + alignment.y + separation.y + bounding.y
 	v = Vector:new(x,y)
 	
 	-- normalize to unit vector * PACE
