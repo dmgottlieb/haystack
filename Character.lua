@@ -144,7 +144,7 @@ function Character:SheepFlock(dt)
 	n = math.max(1,v:norm()) / PACE
 	
 	-- speed decay: first attempt at making the sheep stop for a bit
-	v = v:scale(0.9^dt)
+	v = v:scale(DECAY^dt)
 
 	
 	return {x = v.x / n, y = v.y / n}
