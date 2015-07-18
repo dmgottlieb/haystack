@@ -49,4 +49,11 @@ function Vector:scale(k)
 	return Vector:new(x,y)
 end
 
+function Vector:angle()
+
+	return math.deg(math.atan2(self.y, self.x))
+
+end
+
+
 

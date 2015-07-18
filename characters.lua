@@ -14,8 +14,7 @@ function MakeCharacters(N)
 		x = math.random(50, xrange)
 		y = math.random(50, yrange)
 		c = NPC:new()
-		c.x = x
-		c.y = y
+		c.position = Vector:new(x,y)
 		table.insert(characters, c)
 		
 	end

@@ -7,7 +7,7 @@
 
 function CheckCollision(c, d)
 	
-	if Distance(c.x, c.y, d.x, d.y) <= 2*SIZE then
+	if Distance(c.position.x, c.position.y, d.position.x, d.position.y) <= 2*SIZE then
 		return true
 	else
 		return false
@@ -18,19 +18,19 @@ end
 function DoWallCollision(c)
 	
 	
-	if (c.x <= 25) then
+	if (c.position.x <= 25) then
 		c.momentum.x = math.max(0, c.momentum.x)
 	end
 	
-	if (c.x >= WIDTH - 25) then
+	if (c.position.x >= WIDTH - 25) then
 		c.momentum.x = math.min(0, c.momentum.x)
 	end
 	
-	if (c.y <= 25) then
+	if (c.position.y <= 25) then
 		c.momentum.y = math.max(0, c.momentum.y)
 	end
 	
-	if (c.y >= HEIGHT - 25) then
+	if (c.position.y >= HEIGHT - 25) then
 		c.momentum.y = math.min(0, c.momentum.y)
 	end
 	
@@ -55,7 +55,7 @@ function DoCharacterCollisions(C)
 					d.color = {r=200,g=100,b=100}
 				end
 				
-				normal = {x = d.x - c.x, y = d.y - c.y}
+				normal = {x = d.position.x - c.position.x, y = d.position.y - c.position.y}
 				
 				-- project c.momentum onto normal vector
 				coeff_c = math.min(0,(c.momentum.x * normal.x + c.momentum.y * normal.y) / (normal.x * normal.x + normal.y * normal.y))

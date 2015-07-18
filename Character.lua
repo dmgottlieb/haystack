@@ -1,9 +1,10 @@
+require"Vector"
+
 -- Character prototype
 Character = 
 {
-	x = 0, 
-	y = 0, 
-	momentum = {x=0, y=0}, 
+	position = Vector:new(0,0), 
+	momentum = Vector:new(0,0), 
 	direction = 0, 
 	color = {r=100,g=100,b=100}
 }
@@ -21,18 +22,18 @@ function Character:draw()
 	if not DEBUG then
 		-- later graphics: a sheep
 		love.graphics.setColor(255,255,255)
-		love.graphics.draw(SheepImage, self.x, self.y, math.rad(self.direction), 1,1, 26, 15)
+		love.graphics.draw(SheepImage, self.position.x, self.position.y, math.rad(self.direction), 1,1, 26, 15)
 	else
 		-- debug graphics -- plain circle
 		love.graphics.setLineWidth(1)
 		love.graphics.setColor(self.color.r,self.color.g,self.color.b)
-		love.graphics.circle('fill', self.x, self.y, SIZE, 20)
+		love.graphics.circle('fill', self.position.x, self.position.y, SIZE, 20)
 
 		-- draw momentum vector, flocking neighborhood, separation neighborhood
 		love.graphics.setColor(255,255,255)
-		love.graphics.line(self.x, self.y, (self.x + self.momentum.x), (self.y + self.momentum.y))
-		love.graphics.circle('line', self.x, self.y, FLOCK_NEIGHBORHOOD, 100)
-		love.graphics.circle('line', self.x, self.y, FLOCK_NEIGHBORHOOD * FLOCK_SEPARATION, 100)
+		love.graphics.line(self.position.x, self.position.y, (self.position.x + self.momentum.x), (self.position.y + self.momentum.y))
+		love.graphics.circle('line', self.position.x, self.position.y, FLOCK_NEIGHBORHOOD, 100)
+		love.graphics.circle('line', self.position.x, self.position.y, FLOCK_NEIGHBORHOOD * FLOCK_SEPARATION, 100)
 	end
 	
 end
@@ -48,8 +49,7 @@ end
 
 function Character:walk(dt, pace)
 	
-	self.x = self.x + (self.momentum.x) * dt
-	self.y = self.y + (self.momentum.y) * dt
+	self.position = (self.position + self.momentum:scale(dt))
 	
 	if norm(self.momentum.x, self.momentum.y) > 0 then
 		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x))	
@@ -75,8 +75,11 @@ function Character:SheepFlock(dt)
 	for i,d in ipairs(Characters) do
 		
 		if self ~= d then
+
+			distance = self.position:distance(d.position)
+			angle = (d.position - self.position):angle() - self.direction
 		
-			if Distance(self.x, self.y, d.x, d.y) < FLOCK_NEIGHBORHOOD then
+			if (distance < FLOCK_NEIGHBORHOOD) and (angle < FLOCK_NEIGHBORHOOD_ANGLE) then
 				table.insert(neighbors, d)
 			end
 			
@@ -89,7 +92,7 @@ function Character:SheepFlock(dt)
 	-- cohesion
 	cohesion = {x = 0, y = 0}
 	for i,d in ipairs(neighbors) do 
-		displacement = {x = d.x - self.x, y = d.y - self.y}
+		displacement = (d.position - self.position)
 		cohesion.x, cohesion.y = FLOCK_COHESION * (displacement.x)*dt + cohesion.x, FLOCK_COHESION * (displacement.y)*dt + cohesion.y
 	end
 	
@@ -105,13 +108,13 @@ function Character:SheepFlock(dt)
 	close_neighbors = {}
 	
 	for i,d in ipairs(neighbors) do
-		if Distance(self.x, self.y, d.x, d.y) < (FLOCK_SEPARATION * FLOCK_NEIGHBORHOOD) then
+		if self.position:distance(d.position) < (FLOCK_SEPARATION * FLOCK_NEIGHBORHOOD) then
 			table.insert(close_neighbors, d)
 		end
 	end
 	
 	for i,d in ipairs (close_neighbors) do 
-		displacement = {x = d.x - self.x, y = d.y - self.y}
+		displacement = (d.position - self.position)
 		separation.x, separation.y = -displacement.x*dt + separation.x, -displacement.y*dt + separation.y
 	end
 	
@@ -119,19 +122,19 @@ function Character:SheepFlock(dt)
 	bounding = Vector:new(0,0)
 	Xmin, Xmax, Ymin, Ymax = 0 + 50, WIDTH - 50, 0 + 50, HEIGHT - 50
 	
-	if self.x < Xmin then
+	if self.position.x < Xmin then
 		bounding.x = 10
 	end
 	
-	if self.x > Xmax then
+	if self.position.x > Xmax then
 		bounding.x = -10
 	end
 	
-	if self.y < Ymin then
+	if self.position.y < Ymin then
 		bounding.y = 10
 	end
 	
-	if self.y > Ymax then 
+	if self.position.y > Ymax then 
 		bounding.y = -10
 	end
 	
@@ -141,13 +144,20 @@ function Character:SheepFlock(dt)
 	v = Vector:new(x,y)
 	
 	-- normalize to unit vector * PACE
-	n = math.max(1,v:norm()) / PACE
+	n = 1
+	if v:norm() > PACE then
+		n = v:norm() / PACE
+	end
+
+	v = v:scale(n) 
 	
 	-- speed decay: first attempt at making the sheep stop for a bit
 	v = v:scale(DECAY^(10*dt))
 
+
+
 	
-	return {x = v.x / n, y = v.y / n}
+	return v
 	
 	
 end
