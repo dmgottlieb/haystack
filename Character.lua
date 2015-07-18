@@ -61,7 +61,7 @@ function Character:walk(dt, pace)
 		self.momentum.y = self.momentum.y + PACE * 0.1*math.sin(direction)
 	end
 
-	if self.momentum:norm() > 0.1 then
+	if self.momentum:norm() > 5 then
 		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x))	
 	end
 
