@@ -49,20 +49,24 @@ end
 
 function Character:walk(dt, pace)
 	
-	self.position = (self.position + self.momentum:scale(dt))
-	
-	if norm(self.momentum.x, self.momentum.y) > 0 then
-		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x))	
-	end
-	
-	self.momentum = self:SheepFlock(dt)
-	if math.random(0,1) < SHEEP_INITIATIVE * dt then
-		direction = math.rad(math.random(0,359.9))
-		self.momentum.x = self.momentum.x + 0.1*math.cos(direction)
-		self.momentum.y = self.momentum.y + 0.1*math.sin(direction)
-	end
 
 	
+
+	
+	self.momentum = self:SheepFlock(dt)
+
+	if math.random(0,1) < SHEEP_INITIATIVE * dt then
+		direction = math.rad(math.random(0,359.9))
+		self.momentum.x = self.momentum.x + PACE * 0.1*math.cos(direction)
+		self.momentum.y = self.momentum.y + PACE * 0.1*math.sin(direction)
+	end
+
+	if self.momentum:norm() > 0 then
+		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x))	
+	end
+
+	self.position = (self.position + self.momentum:scale(dt))
+
 
 	
 end
@@ -77,7 +81,7 @@ function Character:SheepFlock(dt)
 		if self ~= d then
 
 			distance = self.position:distance(d.position)
-			angle = (d.position - self.position):angle() - self.direction
+			angle = math.abs((d.position - self.position):angle() - self.direction)
 		
 			if (distance < FLOCK_NEIGHBORHOOD) and (angle < FLOCK_NEIGHBORHOOD_ANGLE) then
 				table.insert(neighbors, d)
@@ -87,24 +91,63 @@ function Character:SheepFlock(dt)
 		
 	end
 	
-	N = table.getn(neighbors)
 	
-	-- cohesion
-	cohesion = {x = 0, y = 0}
+	cohesion = self:getCohesion(neighbors,dt)
+	alignment = self:getAlignment(neighbors,dt)
+	separation = self:getSeparation(neighbors,dt)
+	bounding = self:getBounding(dt)
+	grain = self:goGetGrain()
+	
+	
+	
+
+	
+	-- combination of velocities
+	v = self.momentum + 
+			cohesion:scale(FLOCK_COHESION) + 
+			alignment:scale(FLOCK_ALIGNMENT) + 
+			bounding + 
+			separation +
+			grain:scale(GRAIN_DESIRE)
+
+	
+	-- normalize to unit vector * PACE
+	n = math.min(1, PACE / (v:norm()))
+	v = v:scale(n)
+
+
+
+	return v
+	
+	
+end
+
+function Character:getCohesion(neighbors,dt)
+
+	N = math.max(1,table.getn(neighbors))
+	cohesion = Vector:new(0,0)
 	for i,d in ipairs(neighbors) do 
 		displacement = (d.position - self.position)
-		cohesion.x, cohesion.y = FLOCK_COHESION * (displacement.x)*dt + cohesion.x, FLOCK_COHESION * (displacement.y)*dt + cohesion.y
+		cohesion = displacement + cohesion
 	end
-	
-	-- alignment
-	alignment = {x = 0, y = 0}
+	cohesion = cohesion:scale(dt / N)
+	return cohesion
+end
+
+function Character:getAlignment(neighbors, dt)
+
+	N = math.max(1,table.getn(neighbors))
+	alignment = Vector:new(0,0)
 	for i,d in ipairs(neighbors) do 
-		alignment.x, alignment.y = (d.momentum.x / N) + alignment.x, (d.momentum.y / N) + alignment.y
+		alignment = (d.momentum - self.momentum) + alignment
 	end
-	alignment.x, alignment.y = FLOCK_ALIGNMENT * (alignment.x - self.momentum.x) * dt, FLOCK_ALIGNMENT * (alignment.y - self.momentum.y) * dt
-	
-	-- separation
-	separation = {x = 0, y = 0}
+	alignment = alignment:scale(dt / N)
+
+	return alignment
+end
+
+function Character:getSeparation(neighbors, dt)
+	separation = Vector:new(0,0)
 	close_neighbors = {}
 	
 	for i,d in ipairs(neighbors) do
@@ -115,49 +158,46 @@ function Character:SheepFlock(dt)
 	
 	for i,d in ipairs (close_neighbors) do 
 		displacement = (d.position - self.position)
-		separation.x, separation.y = -displacement.x*dt + separation.x, -displacement.y*dt + separation.y
+		separation = (separation - displacement):scale(dt)
 	end
-	
-	-- soft stay-in-bounds
+
+	return separation
+
+end
+
+
+function Character:getBounding(dt)
 	bounding = Vector:new(0,0)
 	Xmin, Xmax, Ymin, Ymax = 0 + 50, WIDTH - 50, 0 + 50, HEIGHT - 50
 	
 	if self.position.x < Xmin then
-		bounding.x = 10
+		bounding.x = PACE * dt
 	end
 	
 	if self.position.x > Xmax then
-		bounding.x = -10
+		bounding.x = - PACE * dt
 	end
 	
 	if self.position.y < Ymin then
-		bounding.y = 10
+		bounding.y = PACE * dt
 	end
 	
 	if self.position.y > Ymax then 
-		bounding.y = -10
+		bounding.y = - PACE * dt
 	end
-	
-	-- combination of velocities
-	x = self.momentum.x + cohesion.x + alignment.x + separation.x + bounding.x
-	y = self.momentum.y + cohesion.y + alignment.y + separation.y + bounding.y
-	v = Vector:new(x,y)
-	
-	-- normalize to unit vector * PACE
-	n = 1
-	if v:norm() > PACE then
-		n = v:norm() / PACE
-	end
-
-	v = v:scale(n) 
-	
-	-- speed decay: first attempt at making the sheep stop for a bit
-	v = v:scale(DECAY^(10*dt))
-
-
-
-	
-	return v
-	
-	
+	return bounding
 end
+
+function Character:goGetGrain(dt)
+	displacement = Vector:new(0,0)
+
+	if love.mouse.isDown("l") then 
+		grain_position = Vector:new(love.mouse.getX(), love.mouse.getY())
+		displacement = grain_position - self.position
+	end
+
+	--displacement:scale(dt)
+
+	return displacement
+end
+
