@@ -97,6 +97,7 @@ function Character:SheepFlock(dt)
 	separation = self:getSeparation(neighbors,dt)
 	bounding = self:getBounding(dt)
 	grain = self:goGetGrain(dt)
+	threat = self:goAvoidThreat(dt)
 	
 	
 	
@@ -108,7 +109,8 @@ function Character:SheepFlock(dt)
 			alignment:scale(FLOCK_ALIGNMENT) + 
 			bounding + 
 			separation +
-			grain:scale(GRAIN_DESIRE)
+			grain:scale(GRAIN_DESIRE) + 
+			threat:scale(THREAT_AVOID)
 
 	
 	-- normalize to unit vector * PACE
@@ -194,6 +196,19 @@ function Character:goGetGrain(dt)
 	if love.mouse.isDown("l") then 
 		grain_position = Vector:new(love.mouse.getX(), love.mouse.getY())
 		displacement = grain_position - self.position
+	end
+
+	displacement:scale(dt)
+
+	return displacement
+end
+
+function Character:goAvoidThreat(dt)
+	displacement = Vector:new(0,0)
+
+	if love.mouse.isDown("r") then 
+		threat_position = Vector:new(love.mouse.getX(), love.mouse.getY())
+		displacement =  self.position - threat_position
 	end
 
 	displacement:scale(dt)
