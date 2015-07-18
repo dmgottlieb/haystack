@@ -12,6 +12,7 @@ require"Vector"
 
 function love.load(arg)
 	
+	Baa = love.audio.newSource("assets/baa.mp3", "static")
 	LoadParameters()
 	WIDTH = love.graphics.getWidth()
 	HEIGHT = love.graphics.getHeight()

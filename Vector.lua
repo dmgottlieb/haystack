@@ -12,7 +12,7 @@ function Vector:__add(rhs)
 end
 
 function Vector:__unm(op)
-	return {x = -op.x, y = -op.y}
+	return Vector:new(-op.x, -op.y)
 end
 
 function Vector:__sub(rhs)

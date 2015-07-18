@@ -96,7 +96,7 @@ function Character:SheepFlock(dt)
 	alignment = self:getAlignment(neighbors,dt)
 	separation = self:getSeparation(neighbors,dt)
 	bounding = self:getBounding(dt)
-	grain = self:goGetGrain()
+	grain = self:goGetGrain(dt)
 	
 	
 	
@@ -196,8 +196,13 @@ function Character:goGetGrain(dt)
 		displacement = grain_position - self.position
 	end
 
-	--displacement:scale(dt)
+	displacement:scale(dt)
 
 	return displacement
 end
+
+function Character:doBaa()
+	Baa:play()
+end
+
 
