@@ -90,7 +90,7 @@ function Character:SheepFlock(dt)
 	cohesion = {x = 0, y = 0}
 	for i,d in ipairs(neighbors) do 
 		displacement = {x = d.x - self.x, y = d.y - self.y}
-		cohesion.x, cohesion.y = FLOCK_COHESION * (displacement.x / N)*dt + cohesion.x, FLOCK_COHESION * (displacement.y / N)*dt + cohesion.y
+		cohesion.x, cohesion.y = FLOCK_COHESION * (displacement.x)*dt + cohesion.x, FLOCK_COHESION * (displacement.y)*dt + cohesion.y
 	end
 	
 	-- alignment
@@ -144,7 +144,7 @@ function Character:SheepFlock(dt)
 	n = math.max(1,v:norm()) / PACE
 	
 	-- speed decay: first attempt at making the sheep stop for a bit
-	v = v:scale(DECAY^dt)
+	v = v:scale(DECAY^(10*dt))
 
 	
 	return {x = v.x / n, y = v.y / n}
