@@ -7,10 +7,13 @@ require"collisions"
 require"controllers"
 require"score"
 require"Vector"
+require"map-functions"
 
 
 
 function love.load(arg)
+
+	loadMap('/maps/map1.lua')
 	
 	Baa = love.audio.newSource("assets/baa.mp3", "static")
 	LoadParameters()
@@ -48,8 +51,10 @@ end
 
 function love.draw(dt)
 
+	drawMap()
 	DrawCharacters(Characters)
 	DrawSwords(Swords)
+
 	-- DrawScore()
 
 end
