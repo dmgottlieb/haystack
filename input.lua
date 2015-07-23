@@ -1,3 +1,5 @@
+require"Vector"
+
 function UpdatePlayer(p,dt)
 	
 	dx = 0
@@ -29,6 +31,6 @@ function GetPlayerMomentum(p)
 	dx = RightPush(p) - LeftPush(p)
 	dy = DownPush(p) - UpPush(p)
 	
-	return {x = dx, y = dy}
+	return Vector:new(dx, dy)
 	
 end
