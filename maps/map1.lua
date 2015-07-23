@@ -33,3 +33,12 @@ local quadInfo = {
 }
 
 newMap(32,32,'/images/countryside.png', tileString, quadInfo)
+
+local obstacleInfo = {
+	{ '.', 0 }, -- 1 = grass 
+	{ '#', 1 }, -- 2 = box
+	{ '*', 0 }, -- 3 = flowers
+	{ '^', 1 },  -- 4 = boxTop
+}
+
+Obstacle:loadObstacles(tileString, obstacleInfo)

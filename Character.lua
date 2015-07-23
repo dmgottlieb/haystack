@@ -1,4 +1,5 @@
 require"Vector"
+require"Obstacle"
 
 -- Character prototype
 Character = 
@@ -53,7 +54,13 @@ function Character:walk(dt, pace)
 	
 
 	
-	self.momentum = self:SheepFlock(dt)
+	
+	m = self:SheepFlock(dt)
+	if m:norm() > 0.0005*PACE then
+		self.momentum = m
+	else
+		self.momentum = Vector:new(0,0)
+	end
 
 	if math.random(0,1) < SHEEP_INITIATIVE * dt then
 		direction = math.rad(math.random(0,359.9))
@@ -98,6 +105,7 @@ function Character:SheepFlock(dt)
 	bounding = self:getBounding(dt)
 	grain = self:goGetGrain(dt)
 	threat = self:goAvoidThreat(dt)
+	avoidance = self:avoidObstacles(dt)
 	
 	
 	
@@ -110,7 +118,8 @@ function Character:SheepFlock(dt)
 			bounding + 
 			separation +
 			grain:scale(GRAIN_DESIRE) + 
-			threat:scale(THREAT_AVOID)
+			threat:scale(THREAT_AVOID) + 
+			avoidance:scale(OBSTACLE_AVOID)
 
 	
 	-- normalize to unit vector * PACE
@@ -123,6 +132,30 @@ function Character:SheepFlock(dt)
 	
 	
 end
+
+function Character:avoidObstacles(dt)
+	avoidance = Vector:new(0,0)
+
+	nearbyObstacles = {}
+
+	for i, o in ipairs(Obstacles) do 
+		distance = self:norm(o:getDisplacement(self.position))
+		if (distance < OBSTACLE_NEIGHBORHOOD) then
+			table.insert(nearbyObstacles, o)
+		end
+	end
+
+	for i, o in ipairs(nearByObstacles) do 
+		displacement = o:getDisplacement(self.position)
+		avoidance = avoidance - displacement
+	end
+
+	avoidance = avoidance:scale(dt)
+
+	return avoidance
+
+end
+
 
 function Character:getCohesion(neighbors,dt)
 

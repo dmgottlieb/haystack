@@ -1,4 +1,5 @@
 -- map-functions.lua
+--require"Obstacle"
 
 local tileW, tileH, tileset, quads, tileTable, entityInfo, entities
 
@@ -46,6 +47,19 @@ function newMap(tileWidth, tileHeight, tileSetPath, tileString, quadInfo)
 		rowIndex = rowIndex + 1
 	end
 end
+
+-- function loadObstacles(tileString, obstacleInfo)
+
+-- 	for row in tileString:gmatch("[^\n]+") do
+-- 		columnIndex=1
+-- 		for character in row:gmatch(".") do
+-- 			if 
+-- 			columnIndex = columnIndex + 1
+-- 		end 
+-- 		rowIndex = rowIndex + 1
+-- 	end
+
+-- end
 
 function drawMap()
 	
