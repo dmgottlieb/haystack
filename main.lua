@@ -13,6 +13,7 @@ require"map-functions"
 
 function love.load(arg)
 
+	Obstacles = {}
 	loadMap('/maps/map1.lua')
 	
 	Baa = love.audio.newSource("assets/baa.mp3", "static")
@@ -28,6 +29,7 @@ function love.load(arg)
 	
 	Characters = MakeCharacters(NUM_NPCS)
 	Swords = {}
+
 	
 	PCs = PC:makePCs(NUM_PCS)
 	for i,c in ipairs(PCs) do

@@ -24,12 +24,13 @@ end
 function Obstacle:getDisplacement(X)
 	nearestPoint = Vector:new(0,0)
 
-	nearestPoint.x = max(X.x, self.LX)
-	nearestPoint.x = min(X.x, self.UX)
-	nearestPoint.y = max(X.y, self.LY)
-	nearestPoint.y = min(X.y, self.UY)
+	nearestPoint.x = math.max(X.x, self.LX)
+	nearestPoint.x = math.min(X.x, self.UX)
+	nearestPoint.y = math.max(X.y, self.LY)
+	nearestPoint.y = math.min(X.y, self.UY)
 
-	displacement = X - nearestPoint
+	displacement = nearestPoint - X 
+
 	return displacement
 end
 
@@ -42,6 +43,3 @@ function Obstacle:getCenter()
 	return c
 end
 
-function Obstacle:loadObstacles(tileString, obstacleInfo)
-	
-end

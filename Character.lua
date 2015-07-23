@@ -139,13 +139,16 @@ function Character:avoidObstacles(dt)
 	nearbyObstacles = {}
 
 	for i, o in ipairs(Obstacles) do 
-		distance = self:norm(o:getDisplacement(self.position))
+		displacement = o:getDisplacement(self.position)
+		print(displacement.x, displacement.y)
+		distance = displacement:norm()
+		print (distance)
 		if (distance < OBSTACLE_NEIGHBORHOOD) then
 			table.insert(nearbyObstacles, o)
 		end
 	end
 
-	for i, o in ipairs(nearByObstacles) do 
+	for i, o in ipairs(nearbyObstacles) do 
 		displacement = o:getDisplacement(self.position)
 		avoidance = avoidance - displacement
 	end
