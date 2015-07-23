@@ -14,7 +14,7 @@ require"map-functions"
 function love.load(arg)
 
 	Obstacles = {}
-	loadMap('/maps/map1.lua')
+	loadMap('/maps/map2.lua')
 	
 	Baa = love.audio.newSource("assets/baa.mp3", "static")
 	LoadParameters()
