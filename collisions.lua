@@ -74,10 +74,32 @@ function DoCharacterCollisions(C)
 		end
 		
 		DoWallCollision(c)
+		DoObstacleCollisions(c)
 		
 	end
 	
 end
+
+function DoObstacleCollisions(c)
+
+	for i,o in ipairs(Obstacles) do
+		displacement = -(o:getDisplacement(c.position))
+		distance = displacement:norm()
+		if distance <= SIZE then
+
+			if DEBUG then
+				c.color = {r=100,g=200,b=100}
+			end
+
+			coeff = math.min(0, c.momentum * displacement / (displacement:norm())^2)
+			projection = displacement:scale(coeff)
+				
+			c.momentum = c.momentum - projection
+		end
+	end
+
+end
+
 
 function DoSwordCollisions(S, C)
 	
