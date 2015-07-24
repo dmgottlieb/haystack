@@ -8,7 +8,8 @@ Character =
 	momentum = Vector:new(0,0), 
 	direction = 0, 
 	color = {r=100,g=100,b=100},
-	timeAlive = 0
+	timeAlive = 0,
+	wiggle = 0
 }
 
 function Character:new()
@@ -70,13 +71,14 @@ function Character:walk(dt, pace)
 	end
 
 	if self.momentum:norm() > 5 then
-		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x))	
+		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x) + WIGGLE_RANGE * math.sin(self.wiggle))	
 	end
 
 	
 
 	self.timeAlive = self.timeAlive + dt
-	
+	self.wiggle = self.wiggle + self.momentum:norm() * dt
+
 end
 
 -- implements the boids algorithm
