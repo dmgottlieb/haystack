@@ -12,7 +12,7 @@ function MakeCharacters(N)
 	for i = 1, N do
 		
 		
-		x = math.random(50, xrange)
+		x = math.random(-200, -50)
 		y = math.random(50, yrange)
 		c = NPC:new()
 		c.position = Vector:new(x,y)

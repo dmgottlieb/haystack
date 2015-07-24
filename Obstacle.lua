@@ -1,3 +1,5 @@
+require"Vector"
+
 -- An obstacle is a box defined by x and y bounds corners (easy to calculate rectilinear distance)
 Obstacle = {
 	UX = 0,
@@ -24,10 +26,12 @@ end
 function Obstacle:getDisplacement(X)
 	nearestPoint = Vector:new(0,0)
 
-	nearestPoint.x = math.max(X.x, self.LX)
-	nearestPoint.x = math.min(X.x, self.UX)
-	nearestPoint.y = math.max(X.y, self.LY)
-	nearestPoint.y = math.min(X.y, self.UY)
+	nearestPoint.x = X.x 
+	nearestPoint.x = math.max(nearestPoint.x, self.LX)
+	nearestPoint.x = math.min(nearestPoint.x, self.UX)
+	nearestPoint.y = X.y
+	nearestPoint.y = math.max(nearestPoint.y, self.LY)
+	nearestPoint.y = math.min(nearestPoint.y, self.UY)
 
 	displacement = nearestPoint - X 
 

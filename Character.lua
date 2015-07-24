@@ -7,7 +7,8 @@ Character =
 	position = Vector:new(0,0), 
 	momentum = Vector:new(0,0), 
 	direction = 0, 
-	color = {r=100,g=100,b=100}
+	color = {r=100,g=100,b=100},
+	timeAlive = 0
 }
 
 function Character:new()
@@ -74,7 +75,8 @@ function Character:walk(dt, pace)
 
 	self.position = (self.position + self.momentum:scale(dt))
 
-
+	self.timeAlive = self.timeAlive + dt
+	print (self.timeAlive)
 	
 end
 
@@ -106,6 +108,7 @@ function Character:SheepFlock(dt)
 	grain = self:goGetGrain(dt)
 	threat = self:goAvoidThreat(dt)
 	avoidance = self:avoidObstacles(dt)
+	rushIn = self:rushIn(dt)
 	
 	
 	
@@ -128,9 +131,17 @@ function Character:SheepFlock(dt)
 
 
 
-	return v
+	return v + self:rushIn(dt)
 	
 	
+end
+
+function Character:rushIn(dt)
+	rushIn = Vector:new(0,0)
+	if self.timeAlive <= 5 then
+		rushIn.x = PACE
+	end
+	return rushIn
 end
 
 function Character:avoidObstacles(dt)
