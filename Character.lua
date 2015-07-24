@@ -52,7 +52,7 @@ end
 function Character:walk(dt, pace)
 	
 
-	
+	self.position = (self.position + self.momentum:scale(dt))
 
 	
 	
@@ -73,10 +73,9 @@ function Character:walk(dt, pace)
 		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x))	
 	end
 
-	self.position = (self.position + self.momentum:scale(dt))
+	
 
 	self.timeAlive = self.timeAlive + dt
-	print (self.timeAlive)
 	
 end
 
