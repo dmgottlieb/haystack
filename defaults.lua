@@ -19,3 +19,9 @@ GRAIN_DESIRE = 1.0
 THREAT_AVOID = 1.0
 OBSTACLE_AVOID = 1.0
 OBSTACLE_NEIGHBORHOOD = 100
+
+WIGGLE_RANGE = math.pi / 16
+WIGGLE_RATE = 0.02
+
+-- Time characters rush onto the screen after spawning.
+RUSH_TIME = 3.0

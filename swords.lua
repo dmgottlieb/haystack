@@ -3,8 +3,8 @@ function DrawSword(s)
 	
 	direction = {x = math.cos(radians), y = math.sin(radians)}
 	
-	hilt = {x = s.player.x + SIZE * direction.x + 1, y = s.player.y + SIZE * direction.y + 1}
-	tip = {x = s.player.x + (SIZE + SWORD_LENGTH) * direction.x, y = s.player.y + (SIZE + SWORD_LENGTH) * direction.y}
+	hilt = {x = s.player.position.x + SIZE * direction.x + 1, y = s.player.position.y + SIZE * direction.y + 1}
+	tip = {x = s.player.position.x + (SIZE + SWORD_LENGTH) * direction.x, y = s.player.position.y + (SIZE + SWORD_LENGTH) * direction.y}
 	
 	love.graphics.setColor(255,255,255)
 	love.graphics.setLineWidth(3)

@@ -73,7 +73,7 @@ function love.update(dt)
 		c:walk(dt, PACE)
 	end
 	
-	-- UpdateSwords(Swords, dt)
+	UpdateSwords(Swords, dt)
 	
 
 	

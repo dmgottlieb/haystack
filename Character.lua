@@ -139,7 +139,7 @@ end
 
 function Character:rushIn(dt)
 	rushIn = Vector:new(0,0)
-	if self.timeAlive <= 5 then
+	if self.timeAlive <= RUSH_TIME then
 		rushIn.x = PACE
 	end
 	return rushIn

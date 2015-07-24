@@ -106,19 +106,23 @@ function DoSwordCollisions(S, C)
 	for i,s in ipairs(S) do
 		
 		direction = {x = math.cos(radians), y = math.sin(radians)}
-		tip = {x = s.player.x + (SIZE + SWORD_LENGTH) * direction.x, y = s.player.y + (SIZE + SWORD_LENGTH) * direction.y}
+		tip = {x = s.player.position.x + (SIZE + SWORD_LENGTH) * direction.x, y = s.player.position.y + (SIZE + SWORD_LENGTH) * direction.y}
 		
 		for j, c in ipairs(C) do
 		
 			if s.Player ~= c then
 				
-				if Distance(tip.x,tip.y,c.x,c.y) <= SIZE then
+				if Distance(tip.x,tip.y,c.position.x,c.position.y) <= SIZE then
 					
 					if c.PC == true then
 						s.player.score = s.player.score + 1
-						c.Respawn()
 					end
-					
+
+					if DEBUG then
+						c.color = {r=100,g=100,b=10}
+					end
+
+					--c.Respawn()
 					table.remove(C,j)
 					
 				end

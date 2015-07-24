@@ -13,12 +13,18 @@ function PC:walk(dt, pace)
 	self.momentum = GetPlayerMomentum(self)
 	self.momentum.x = self.momentum.x*pace
 	self.momentum.y = self.momentum.y*pace
+
+	UpdatePlayer(self, dt)
 end
 
 function PC:new()
 	o = Character:new()
 	setmetatable(o, self)
 	self.__index = self
+
+	o.PC = true
+	o.canAttack = true
+	o.attackTimer = ATTACK_TIMER_MAX
 	
 	return o
 end

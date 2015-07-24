@@ -4,10 +4,7 @@ function UpdatePlayer(p,dt)
 	
 	dx = 0
 	dy = 0
-	
-	-- p.direction = math.deg(math.atan2(p.momentum.y, p.momentum.x))
-	-- it would be nice if player's direction didn't change when they stood still. Current math makes you face right if you don't move. 
-	
+		
 	p.attackTimer = p.attackTimer - dt
 	if p.attackTimer <= 0 then
 		p.canAttack = true
