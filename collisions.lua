@@ -122,8 +122,9 @@ function DoSwordCollisions(S, C)
 						c.color = {r=100,g=100,b=10}
 					end
 
-					--c.Respawn()
+					
 					table.remove(C,j)
+					table.insert(C,MakeCharacters(1)[1])
 					
 				end
 				
