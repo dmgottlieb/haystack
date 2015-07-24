@@ -54,6 +54,7 @@ function Character:walk(dt, pace)
 	
 
 	self.position = (self.position + self.momentum:scale(dt))
+	self.wiggle = self.wiggle + self.momentum:norm() * dt
 
 	
 	
@@ -77,7 +78,6 @@ function Character:walk(dt, pace)
 	
 
 	self.timeAlive = self.timeAlive + dt
-	self.wiggle = self.wiggle + self.momentum:norm() * dt
 
 end
 
