@@ -9,7 +9,8 @@ Character =
 	direction = 0, 
 	color = {r=100,g=100,b=100},
 	timeAlive = 0,
-	wiggle = 0
+	wiggle = 0,
+	PC = false
 }
 
 function Character:new()
@@ -39,7 +40,7 @@ function Character:draw()
 		love.graphics.circle('line', self.position.x, self.position.y, FLOCK_NEIGHBORHOOD * FLOCK_SEPARATION, 100)
 	end
 
-	
+
 end
 
 local function sigmoid(x)
@@ -57,9 +58,10 @@ function Character:walk(dt, pace)
 	self.position = (self.position + self.momentum:scale(dt))
 	self.wiggle = self.wiggle + self.momentum:norm() * dt
 
-	
-	
-	m = self:SheepFlock(dt)
+	m = self.momentum
+	if not self.PC then
+		m = self:SheepFlock(dt)
+	end
 	if m:norm() > 0.0005*PACE then
 		self.momentum = m
 	else

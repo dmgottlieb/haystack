@@ -52,8 +52,8 @@ function makePCs(numPCs)
 	PCs = {}
 	
 	positions = {
-		{x = 500, y = 400},
-		{x = 500, y = 600}
+		{x = -50, y = 400},
+		{x = -50, y = 600}
 	}
 	
 	for i = 1, numPCs do
