@@ -38,9 +38,21 @@ function love.load(arg)
 		table.insert(Characters,c)
 	end
 
-	
+	Joysticks = {}
 	
 end
+
+function love.joystickadded(joystick)
+	table.insert(Joysticks, joystick)
+	index = table.getn(Joysticks)
+	for i, p in ipairs(PCs) do
+		if (p.controller == 1) or (p.controller == 2) then
+			p.controller = index + 2
+			return nil
+		end
+	end
+end
+
 
 function LoadParameters()
 	-- loads all parameters. 
@@ -59,7 +71,8 @@ function love.draw(dt)
 	DrawCharacters(Characters)
 	DrawSwords(Swords)
 
-	DrawScore()
+	DrawScore(PCs)
+
 
 end
 

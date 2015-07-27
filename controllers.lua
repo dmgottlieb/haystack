@@ -1,3 +1,7 @@
+function SetUpGamePads() 
+	gamepads = love.joystick.getJoysticks()
+end
+
 function LeftPush(p)
 	
 	--keyboard arrows
@@ -11,6 +15,10 @@ function LeftPush(p)
 		if love.keyboard.isDown('a') then
 			return 1
 		end
+	
+	else
+		local joystick = Joysticks[p.controller - 2]
+		return math.max(-joystick:getGamepadAxis("leftx"), 0)
 	end
 	
 	return 0
@@ -30,6 +38,9 @@ function RightPush(p)
 		if love.keyboard.isDown('d') then
 			return 1
 		end
+	else
+		local joystick = Joysticks[p.controller - 2]
+		return math.max(joystick:getGamepadAxis("leftx"), 0)
 	end
 	
 	return 0
@@ -49,6 +60,9 @@ function DownPush(p)
 		if love.keyboard.isDown('s') then
 			return 1
 		end
+	else
+		local joystick = Joysticks[p.controller - 2]
+		return math.max(joystick:getGamepadAxis("lefty"), 0)
 	end
 	
 	return 0
@@ -68,6 +82,9 @@ function UpPush(p)
 		if love.keyboard.isDown('w') then
 			return 1
 		end
+	else
+		local joystick = Joysticks[p.controller - 2]
+		return math.max(-joystick:getGamepadAxis("lefty"), 0)
 	end
 	
 	return 0

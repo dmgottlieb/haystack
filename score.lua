@@ -1,5 +1,5 @@
 function DrawScore(players)
-	love.graphics.setColor(0,0,0)
+	--love.graphics.setColor(0,0,0)
 
 	local scorePositions = {
 
