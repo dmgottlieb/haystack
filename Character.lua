@@ -38,6 +38,7 @@ function Character:draw()
 		love.graphics.circle('line', self.position.x, self.position.y, FLOCK_NEIGHBORHOOD, 100)
 		love.graphics.circle('line', self.position.x, self.position.y, FLOCK_NEIGHBORHOOD * FLOCK_SEPARATION, 100)
 	end
+
 	
 end
 

@@ -1,15 +1,27 @@
 require"Character"
 
 -- PC prototype inherits Character prototype
-PC = Character:new() -- is this redundant? see "constructor" below.
-PC.PC = true
-PC.canAttack = true
-PC.attackTimer = ATTACK_TIMER_MAX
+PC = {
+	position = Vector:new(0,0), 
+	momentum = Vector:new(0,0), 
+	direction = 0, 
+	color = {r=100,g=100,b=100},
+	timeAlive = 0,
+	wiggle = 0,
+	attackTimer = ATTACK_TIMER_MAX,
+	canAttack = true,
+	PC = true
+}
+setmetatable(PC, {__index = Character})
+
 
 function PC:walk(dt, pace)
 	-- call super method
 	Character.walk(self,dt,pace)
 	
+	self.position = (self.position + self.momentum:scale(dt))
+
+
 	self.momentum = GetPlayerMomentum(self)
 	self.momentum.x = self.momentum.x*pace
 	self.momentum.y = self.momentum.y*pace
@@ -18,32 +30,41 @@ function PC:walk(dt, pace)
 end
 
 function PC:new()
-	o = Character:new()
+	o = {}
 	setmetatable(o, self)
 	self.__index = self
 
-	o.PC = true
-	o.canAttack = true
-	o.attackTimer = ATTACK_TIMER_MAX
+	self.position = Vector:new(0,0)
+	self.momentum = Vector:new(0,0)
+	self.direction = 0
+	self.color = {r=100,g=100,b=100}
+	self.timeAlive = 0
+	self.wiggle = 0
+	self.attackTimer = ATTACK_TIMER_MAX
+	self.canAttack = true
+	self.PC = true
+
 	
 	return o
 end
 
-function PC:makePCs(numPCs)
+function makePCs(numPCs)
 	PCs = {}
 	
 	positions = {
-		{x = WIDTH / 2 - 100, y = HEIGHT / 2 - 100},
-		{x = WIDTH / 2 + 100, y = HEIGHT / 2 + 100}
+		{x = 500, y = 400},
+		{x = 500, y = 600}
 	}
 	
 	for i = 1, numPCs do
-		c = PC:new()
+		local c = PC:new()
 		c.controller = i
 		c.score = 0
-		c.x, c.y = positions[i].x, positions[i].y
+		c.position = Vector:new(positions[i].x, positions[i].y)
 		table.insert(PCs,c)
 	end
 	
+	
+
 	return PCs
 end

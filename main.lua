@@ -33,7 +33,7 @@ function love.load(arg)
 	Swords = {}
 
 	
-	PCs = PC:makePCs(NUM_PCS)
+	PCs = makePCs(NUM_PCS)
 	for i,c in ipairs(PCs) do
 		table.insert(Characters,c)
 	end

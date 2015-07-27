@@ -104,6 +104,9 @@ function SwordButton(p)
 		if love.keyboard.isDown(' ') then
 			return true
 		end
+	else 
+		local joystick = Joysticks[p.controller - 2]
+		return joystick:isGamepadDown("a")
 	end
 	
 	return false	
