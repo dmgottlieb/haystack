@@ -59,7 +59,7 @@ function love.draw(dt)
 	DrawCharacters(Characters)
 	DrawSwords(Swords)
 
-	-- DrawScore()
+	DrawScore()
 
 end
 
