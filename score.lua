@@ -1,7 +1,17 @@
-function DrawScore()
+function DrawScore(players)
 	love.graphics.setColor(0,0,0)
+
+	local scorePositions = {
+
+		{x = 15, y = HEIGHT - 35},
+		{x = WIDTH - 15, y = HEIGHT - 35},
+		{x = 15, y = 15},
+		{x = WIDTH - 15, y = 15}
+
+}
 	
-	love.graphics.print(P1.score, 15, HEIGHT - 35)
-	love.graphics.print(P2.score, WIDTH - 35, HEIGHT - 35)
+	for i, p in ipairs(players) do
+		love.graphics.print(p.score, scorePositions[i].x, scorePositions[i].y)
+	end
 end
 
