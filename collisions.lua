@@ -7,6 +7,10 @@
 
 function CheckCollision(c, d)
 	
+	if not (c.alive and d.alive) then
+		return false
+	end
+
 	if Distance(c.position.x, c.position.y, d.position.x, d.position.y) <= 2*SIZE then
 		return true
 	else
