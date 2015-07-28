@@ -113,6 +113,10 @@ function DoSwordCollisions(S, C)
 		tip = {x = s.player.position.x + (SIZE + SWORD_LENGTH) * direction.x, y = s.player.position.y + (SIZE + SWORD_LENGTH) * direction.y}
 		
 		for j, c in ipairs(C) do
+
+			if not c.alive then
+				break
+			end
 		
 			if s.Player ~= c then
 				
