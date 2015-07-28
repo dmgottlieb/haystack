@@ -283,7 +283,7 @@ function Character:goAvoidThreat(dt)
 end
 
 function Character:doBaa()
-	if self.baaTimer <= 0 then
+	if (self.baaTimer <= 0) and (self.alive) then
 		Baa:play()
 		self.baaTimer = BAA_TIMER_MAX
 	end
