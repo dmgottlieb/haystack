@@ -11,7 +11,8 @@ Character =
 	timeAlive = 0,
 	wiggle = 0,
 	PC = false,
-	alive = true
+	alive = true,
+	baaTimer = BAA_TIMER_MAX
 }
 
 function Character:new()
@@ -89,9 +90,14 @@ function Character:walk(dt, pace)
 		self.direction = math.deg(math.atan2(self.momentum.y, self.momentum.x) + WIGGLE_RANGE * math.sin(self.wiggle))	
 	end
 
+	if self.momentum:norm() >= PACE then
+		self:doBaa()
+	end
+
 	
 
 	self.timeAlive = self.timeAlive + dt
+	self.baaTimer = self.baaTimer - dt
 
 end
 
@@ -277,7 +283,10 @@ function Character:goAvoidThreat(dt)
 end
 
 function Character:doBaa()
-	Baa:play()
+	if self.baaTimer <= 0 then
+		Baa:play()
+		self.baaTimer = BAA_TIMER_MAX
+	end
 end
 
 function Character:die()

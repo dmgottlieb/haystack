@@ -16,6 +16,7 @@ function MakeCharacters(N)
 		y = math.random(50, yrange)
 		c = NPC:new()
 		c.position = Vector:new(x,y)
+		c.baaTimer = BAA_TIMER_MAX
 		-- c.direction = math.rad(math.random(0,359.9))
 		-- speed = math.random()
 		-- c.momentum.x = speed * PACE * math.cos(c.direction)

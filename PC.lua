@@ -10,7 +10,8 @@ PC = {
 	wiggle = 0,
 	attackTimer = ATTACK_TIMER_MAX,
 	canAttack = true,
-	PC = true
+	PC = true,
+	baaTimer = BAA_TIMER_MAX
 }
 setmetatable(PC, {__index = Character})
 
@@ -18,6 +19,10 @@ setmetatable(PC, {__index = Character})
 function PC:walk(dt, pace)
 	-- call super method
 	Character.walk(self,dt,pace)
+
+	if not self.alive then
+		return nil
+	end
 	
 	self.position = (self.position + self.momentum:scale(dt))
 
@@ -34,18 +39,31 @@ function PC:new()
 	setmetatable(o, self)
 	self.__index = self
 
-	self.position = Vector:new(0,0)
-	self.momentum = Vector:new(0,0)
-	self.direction = 0
-	self.color = {r=100,g=100,b=100}
-	self.timeAlive = 0
-	self.wiggle = 0
-	self.attackTimer = ATTACK_TIMER_MAX
-	self.canAttack = true
-	self.PC = true
+	o.position = Vector:new(0,0)
+	o.momentum = Vector:new(0,0)
+	o.direction = 0
+	o.color = {r=100,g=100,b=100}
+	o.timeAlive = 0
+	o.wiggle = 0
+	o.attackTimer = ATTACK_TIMER_MAX
+	o.canAttack = true
+	o.PC = true
+	o.alive = true
 
 	
 	return o
+end
+
+-- Returns a new PC with same attributes as object. Use for respawning after death. 
+function PC:clone()
+	clone = PC:new()
+
+	clone.position = Vector:new(self.position.x, self.position.y)
+	clone.momentum = Vector:new(self.momentum.x, self.momentum.y)
+	clone.direction = self.direction
+	clone.controller = self.controller
+	clone.score = self.score
+
 end
 
 function makePCs(numPCs)
@@ -61,6 +79,7 @@ function makePCs(numPCs)
 		c.controller = i
 		c.score = 0
 		c.position = Vector:new(positions[i].x, positions[i].y)
+		c.baaTimer = BAA_TIMER_MAX
 		table.insert(PCs,c)
 	end
 	

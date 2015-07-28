@@ -25,3 +25,5 @@ WIGGLE_RATE = 0.02
 
 -- Time characters rush onto the screen after spawning.
 RUSH_TIME = 3.0
+
+BAA_TIMER_MAX = 3.0
