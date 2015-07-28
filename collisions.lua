@@ -123,7 +123,7 @@ function DoSwordCollisions(S, C)
 					end
 
 					
-					table.remove(C,j)
+					c:die()
 					table.insert(C,MakeCharacters(1)[1])
 					
 				end

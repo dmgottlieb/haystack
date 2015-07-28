@@ -10,7 +10,8 @@ Character =
 	color = {r=100,g=100,b=100},
 	timeAlive = 0,
 	wiggle = 0,
-	PC = false
+	PC = false,
+	alive = true
 }
 
 function Character:new()
@@ -22,11 +23,17 @@ function Character:new()
 end
 
 function Character:draw()
+
+	if self.alive then
+		sprite = SheepImage
+	else 
+		sprite = DeadSheepImage
+	end
 	
 	if not DEBUG then
 		-- later graphics: a sheep
 		love.graphics.setColor(255,255,255)
-		love.graphics.draw(SheepImage, self.position.x, self.position.y, math.rad(self.direction), 1,1, 26, 15)
+		love.graphics.draw(sprite, self.position.x, self.position.y, math.rad(self.direction), 1,1, 26, 15)
 	else
 		-- debug graphics -- plain circle
 		love.graphics.setLineWidth(1)
@@ -53,6 +60,10 @@ local function norm(x,y)
 end
 
 function Character:walk(dt, pace)
+
+	if not self.alive then
+		return nil 
+	end
 	
 
 	self.position = (self.position + self.momentum:scale(dt))
@@ -267,6 +278,12 @@ end
 
 function Character:doBaa()
 	Baa:play()
+end
+
+function Character:die()
+
+	self.alive = false
+
 end
 
 

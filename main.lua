@@ -28,6 +28,7 @@ function love.load(arg)
 	love.graphics.setFont(font)
 	
 	SheepImage = love.graphics.newImage("assets/sheep-s.png")
+	DeadSheepImage = love.graphics.newImage("assets/deadsheep-s.png")
 	
 	Characters = MakeCharacters(NUM_NPCS)
 	Swords = {}
