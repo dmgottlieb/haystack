@@ -115,11 +115,16 @@ function DoSwordCollisions(S, C)
 				if Distance(tip.x,tip.y,c.position.x,c.position.y) <= SIZE then
 					
 					if c.PC == true then
-						c.PC = false
+					
 						s.player.score = s.player.score + 1
-						respawn = c:clone()
-						table.insert(C, respawn)
-						table.insert(PCs, respawn)
+
+						x, y = c.position.x, c.position.y
+						local corpse = NPC:new()
+						corpse.position = Vector:new(x,y)
+						corpse.alive = false
+						table.insert(C, corpse)
+
+
 					end
 
 					if DEBUG then

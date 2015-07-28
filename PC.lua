@@ -1,20 +1,20 @@
 require"Character"
 
 -- PC prototype inherits Character prototype
-PC = {
-	position = Vector:new(0,0), 
-	momentum = Vector:new(0,0), 
-	direction = 0, 
-	color = {r=100,g=100,b=100},
-	timeAlive = 0,
-	wiggle = 0,
-	attackTimer = ATTACK_TIMER_MAX,
-	canAttack = true,
-	PC = true,
-	baaTimer = BAA_TIMER_MAX
-}
-setmetatable(PC, {__index = Character})
-
+-- PC = {
+-- 	position = Vector:new(0,0), 
+-- 	momentum = Vector:new(0,0), 
+-- 	direction = 0, 
+-- 	color = {r=100,g=100,b=100},
+-- 	timeAlive = 0,
+-- 	wiggle = 0,
+-- 	attackTimer = ATTACK_TIMER_MAX,
+-- 	canAttack = true,
+-- 	PC = true,
+-- 	baaTimer = BAA_TIMER_MAX
+-- }
+-- 
+PC = Character:new()
 
 function PC:walk(dt, pace)
 	-- call super method
@@ -64,6 +64,22 @@ function PC:clone()
 	clone.controller = self.controller
 	clone.score = self.score
 
+	return clone
+end
+
+-- leaves a corpse and respawns at left edge. Return corpse so calling process can add it to Characters list.
+function PC:die()
+	-- corpse = Character:new()
+	-- corpse.position = Vector:new(self.position.x, self.position.y)
+	-- corpse.alive = false
+
+	local x = -50
+	local y = math.random(50, HEIGHT - 50)
+	self.position = Vector:new(x,y)
+	self.timeAlive = 0
+	self.alive = true
+
+	--return corpse
 end
 
 function makePCs(numPCs)
