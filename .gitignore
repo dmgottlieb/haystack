@@ -1,3 +1,4 @@
 *.ttf
 parameters.lua
 *.pxi
+./logs/*
