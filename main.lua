@@ -8,6 +8,7 @@ require"controllers"
 require"score"
 require"Vector"
 require"map-functions"
+require"Logger"
 
 
 
@@ -40,6 +41,8 @@ function love.load(arg)
 	end
 
 	Joysticks = {}
+
+	Log = Logger:new()
 	
 end
 
@@ -54,6 +57,12 @@ function love.joystickadded(joystick)
 	end
 end
 
+
+-- On quit, attempt to save game log.
+function love.quit()
+	-- To do: tell logger to save.
+	Log:writeLog()
+end
 
 function LoadParameters()
 	-- loads all parameters. 
