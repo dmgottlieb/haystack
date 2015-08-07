@@ -16,7 +16,7 @@ function Logger:new(map)
 
 	-- Idea: initialize log header with automatic version info from git hook
 	-- Also: what map is being played
-	o.map = map
+	o.map = "-- map=" .. map .. "\n"
 	return o
 end
 
