@@ -42,7 +42,7 @@ function love.load(arg)
 
 	Joysticks = {}
 
-	Log = Logger:new()
+	Log = Logger:new(MAP)
 	
 end
 
