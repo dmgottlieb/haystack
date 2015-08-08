@@ -291,6 +291,14 @@ end
 
 function Character:die()
 
+	local char = "NPC"
+	if self.PC then char = "PC" end
+
+	local x = math.floor(self.position.x)
+	local y = math.floor(self.position.y)
+	local time = os.time()
+
+	Log:addEvent("die", char, x, y, time, "")
 	self.alive = false
 
 end

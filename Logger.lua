@@ -56,6 +56,14 @@ function Logger:writeLog()
 	f:write(self.header)
 	f:write(self.map)
 
+	-- write scores
+	local scores = "-- scores: "
+	for i,c in ipairs(PCs) do
+		scores = scores .. c.score .. ", "
+	end
+	scores = scores .. " \n"
+	f:write(scores)
+
 	-- write configs info 
 	for key, value in pairs(cfgs) do
 		local s = "-- " .. key .. "=" .. value .. "\n"

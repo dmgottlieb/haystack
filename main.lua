@@ -100,6 +100,7 @@ function love.update(dt)
 		for i,c in ipairs(Characters) do 
 			local char = "NPC"
 			if c.PC then char = "PC" end
+			if not (c.alive) then char = "corpse" end
 			local x = math.floor(c.position.x)
 			local y = math.floor(c.position.y)
 			Log:addEvent("position", char, x, y, time, "")
