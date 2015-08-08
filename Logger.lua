@@ -3,7 +3,7 @@
 
 Logger = {
 	events = {},
-	header = "--Haystack tactics log \n",
+	header = "-- Haystack tactics log \n",
 	map = "-- \n",
 	data_fields = "event, char, x, y, time, memo" -- csv line with variable names
 }
@@ -33,8 +33,6 @@ function Logger:writeLog()
 		love.filesystem.makeDirectory("logs")
 	end
 
-
-
 	name = "logs/hslog-" .. os.time() .. ".csv"
 	f = love.filesystem.newFile(name)
 	f:open("w")
@@ -43,5 +41,6 @@ function Logger:writeLog()
 	for i,l in ipairs(self.events) do
 		f:write(l)
 	end
+
 	f:close()
 end

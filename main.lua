@@ -53,6 +53,7 @@ function love.joystickadded(joystick)
 	for i, p in ipairs(PCs) do
 		if (p.controller == 1) or (p.controller == 2) then
 			p.controller = index + 2
+			Log:addEvent("joystick",i,"","",os.time(),"")
 			return nil
 		end
 	end
@@ -61,7 +62,7 @@ end
 
 -- On quit, attempt to save game log.
 function love.quit()
-	-- To do: tell logger to save.
+	Log:addEvent("quit","","","",os.time(),"")
 	Log:writeLog()
 end
 
