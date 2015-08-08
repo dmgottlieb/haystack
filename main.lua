@@ -43,7 +43,7 @@ function love.load(arg)
 	Joysticks = {}
 
 	Log = Logger:new(MAP)
-	Log:addEvent("start","","","", )
+	Log:addEvent("start","","","",os.time(),"")
 	
 end
 
