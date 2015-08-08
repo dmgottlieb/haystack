@@ -299,7 +299,9 @@ function Character:die()
 	local time = os.time()
 
 	Log:addEvent("die", char, x, y, time, "")
-	self.alive = false
+
+	-- death is handled differently for PCs and NPCs, this case is needed to ensure live PCs are marked live
+	if not (self.PC) then self.alive = false end
 
 end
 
