@@ -9,7 +9,7 @@ Logger = {
 	last_log = 0
 }
 
-function Logger:new(map)
+function Logger:new(map, cmts)
 	o = {}
 	setmetatable(o, self)
 	self.__index = self
@@ -18,6 +18,7 @@ function Logger:new(map)
 	-- Idea: initialize log header with automatic version info from git hook
 	-- Also: what map is being played
 	o.map = "-- map=" .. map .. "\n"
+	o.header = o.header .. "-- " .. cmts .. "\n" 
 	return o
 end
 

@@ -42,7 +42,9 @@ function love.load(arg)
 
 	Joysticks = {}
 
-	Log = Logger:new(MAP)
+
+	cmts = table.concat(arg, ' ')
+	Log = Logger:new(MAP, cmts)
 	Log:addEvent("start","","","",os.time(),"")
 	
 end
