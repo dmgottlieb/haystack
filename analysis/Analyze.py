@@ -18,4 +18,4 @@ for loc in locations:
 	p = mp.Point(loc[0], loc[1])
 	m.AtLocation(p)
 
-m.DrawLocations()
+m.DrawQuantizedLocations()
