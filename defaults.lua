@@ -32,4 +32,4 @@ BAA_TIMER_MAX = 3.0
 
 
 LOG = true
-LOG_SAMPLE_STEP = 10.0 -- time (s) between logging positions
+LOG_SAMPLE_STEP = 1.0 -- time (s) between logging positions

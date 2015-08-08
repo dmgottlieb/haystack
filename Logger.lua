@@ -65,11 +65,16 @@ function Logger:writeLog()
 	scores = scores .. " \n"
 	f:write(scores)
 
+
 	-- write configs info 
 	for key, value in pairs(cfgs) do
 		local s = "-- " .. key .. "=" .. value .. "\n"
 		f:write(s)
 	end
+
+
+	-- write fields 
+	f:write(self.data_fields .. "\n")
 
 	-- write events
 	for i,l in ipairs(self.events) do
