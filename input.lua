@@ -13,6 +13,9 @@ function UpdatePlayer(p,dt)
 	if SwordButton(p) and p.canAttack == true then
 		sword = {player = p, theta = 0, offset = p.direction}
 		table.insert(Swords, sword)
+
+		-- log sword attack
+		Log:addEvent("sword","PC",p.position.x, p.position.y, os.time(), "")
 		
 		-- Disable attack and set timer
 		p.canAttack = false
