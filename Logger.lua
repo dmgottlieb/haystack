@@ -33,14 +33,60 @@ function Logger:writeLog()
 		love.filesystem.makeDirectory("logs")
 	end
 
+	-- get configs for this game
+	local cfgs = getConfigs()
+
+	-- create and open file
 	name = "logs/hslog-" .. os.time() .. ".csv"
 	f = love.filesystem.newFile(name)
 	f:open("w")
+
+	-- write header and map name
 	f:write(self.header)
 	f:write(self.map)
+
+	-- write configs info 
+	for key, value in pairs(cfgs) do
+		local s = "-- " .. key .. "=" .. value .. "\n"
+		f:write(s)
+	end
+
+	-- write events
 	for i,l in ipairs(self.events) do
 		f:write(l)
 	end
 
 	f:close()
+end
+
+function getConfigs()
+
+	local cfgs = {}
+
+	cfgs = readConfigsIntoTable(cfgs,"defaults.lua") 
+	cfgs = readConfigsIntoTable(cfgs,"parameters.lua")
+
+	return cfgs
+
+end
+
+function readConfigsIntoTable(table,filename)
+
+	for line in love.filesystem.lines(filename) do
+		-- strip comments
+		line = line:gsub("%-%-(.*)", "")
+		-- strip spaces
+		line = line:gsub("%s", "")
+
+		-- find key/value structure
+		local split = line:find("=",1,false)
+		if not (split == nil) then
+			local key = line:sub(1,split-1)
+			local value = line:sub(split+1)
+			table[key] = value
+		end
+	end
+
+	return table
+
 end
