@@ -110,39 +110,42 @@ function DoSwordCollisions(S, C)
 	for i,s in ipairs(S) do
 		
 		direction = {x = math.cos(radians), y = math.sin(radians)}
-		tip = {x = s.player.position.x + (SIZE + SWORD_LENGTH) * direction.x, y = s.player.position.y + (SIZE + SWORD_LENGTH) * direction.y}
+
+		for sl=1,SWORD_LENGTH do
+			local tip = {x = s.player.position.x + (SIZE + sl) * direction.x, y = s.player.position.y + (SIZE + sl) * direction.y}
 		
-		for j, c in ipairs(C) do
-		
-			if (s.Player ~= c) and (c.alive) then
-				
-				if Distance(tip.x,tip.y,c.position.x,c.position.y) <= SIZE then
+			for j, c in ipairs(C) do
+			
+				if (s.Player ~= c) and (c.alive) then
 					
-					if c.PC == true then
-					
-						s.player.score = s.player.score + 1
+					if Distance(tip.x,tip.y,c.position.x,c.position.y) <= SIZE then
+						
+						if c.PC == true then
+						
+							s.player.score = s.player.score + 1
 
-						x, y = c.position.x, c.position.y
-						local corpse = NPC:new()
-						corpse.position = Vector:new(x,y)
-						corpse.alive = false
-						table.insert(C, corpse)
+							x, y = c.position.x, c.position.y
+							local corpse = NPC:new()
+							corpse.position = Vector:new(x,y)
+							corpse.alive = false
+							table.insert(C, corpse)
 
 
+						end
+
+						if DEBUG then
+							c.color = {r=100,g=100,b=10}
+						end
+
+						
+						c:die()
+						table.insert(C,MakeCharacters(1)[1])
+						
 					end
-
-					if DEBUG then
-						c.color = {r=100,g=100,b=10}
-					end
-
-					
-					c:die()
-					table.insert(C,MakeCharacters(1)[1])
 					
 				end
 				
 			end
-			
 		end
 		
 	end
