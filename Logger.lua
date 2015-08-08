@@ -27,13 +27,21 @@ function Logger:addEvent(event, char, x, y, time, memo)
 end
 
 function Logger:writeLog()
+	
+	-- Create logs folder if necessary. 
+	if not love.filesystem.exists("logs") then
+		love.filesystem.makeDirectory("logs")
+	end
+
+
+
 	name = "logs/hslog-" .. os.time() .. ".csv"
 	f = love.filesystem.newFile(name)
 	f:open("w")
 	f:write(self.header)
 	f:write(self.map)
 	for i,l in ipairs(self.events) do
-		f.write(l)
+		f:write(l)
 	end
 	f:close()
 end
