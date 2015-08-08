@@ -92,6 +92,9 @@ end
 
 function love.update(dt)
 	
+	-- If 'esc' is pressed, launch debug console
+	debugLoop()
+
 	-- Collisions
 	DoCharacterCollisions(Characters)
 	DoSwordCollisions(Swords, Characters)
@@ -118,4 +121,13 @@ function love.update(dt)
 
 	
 	
+end
+
+-- If 'esc' is pressed, launch debug console
+function debugLoop()
+
+	if (love.keyboard.isDown("escape")) then
+		debug.debug()
+	end
+
 end
