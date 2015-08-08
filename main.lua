@@ -93,6 +93,18 @@ function love.update(dt)
 	-- Collisions
 	DoCharacterCollisions(Characters)
 	DoSwordCollisions(Swords, Characters)
+
+	-- log positions -- 
+	if Log:ready(dt) then
+		time = os.time()
+		for i,c in ipairs(Characters) do 
+			local char = "NPC"
+			if c.PC then char = "PC" end
+			local x = math.floor(c.position.x)
+			local y = math.floor(c.position.y)
+			Log:addEvent("position", char, x, y, time, "")
+		end
+	end
 	
 	for i, c in ipairs(Characters) do
 		c:walk(dt, PACE)

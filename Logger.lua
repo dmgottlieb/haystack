@@ -5,7 +5,8 @@ Logger = {
 	events = {},
 	header = "-- Haystack tactics log \n",
 	map = "-- \n",
-	data_fields = "event, char, x, y, time, memo" -- csv line with variable names
+	data_fields = "event, char, x, y, time, memo", -- csv line with variable names,
+	last_log = 0
 }
 
 function Logger:new(map)
@@ -18,6 +19,16 @@ function Logger:new(map)
 	-- Also: what map is being played
 	o.map = "-- map=" .. map .. "\n"
 	return o
+end
+
+function Logger:ready(dt)
+	self.last_log = self.last_log + dt 
+	if self.last_log >= LOG_SAMPLE_STEP then
+		self.last_log = 0
+		return true
+	else
+		return false
+	end
 end
 
 function Logger:addEvent(event, char, x, y, time, memo)
