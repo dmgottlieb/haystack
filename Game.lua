@@ -29,9 +29,20 @@ function Game:NewGame(num_pcs, num_npcs, first_to, menu, scoredisp)
 		table.insert(Characters,c)
 	end
 
-	
 	Log = Logger:new(MAP, CMTS)
 	Log:addEvent("start","","","",os.time(),"")
+
+
+	index = table.getn(Joysticks)
+	for i, p in ipairs(PCs) do
+		if (p.controller == 1) or (p.controller == 2) then
+			p.controller = index + p.controller
+			Log:addEvent("joystick",i,"","",os.time(),"")
+		end
+	end
+
+	
+	
 
 end
 

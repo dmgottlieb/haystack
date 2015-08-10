@@ -49,14 +49,7 @@ end
 
 function love.joystickadded(joystick)
 	table.insert(Joysticks, joystick)
-	index = table.getn(Joysticks)
-	for i, p in ipairs(PCs) do
-		if (p.controller == 1) or (p.controller == 2) then
-			p.controller = index + 2
-			Log:addEvent("joystick",i,"","",os.time(),"")
-			return nil
-		end
-	end
+
 end
 
 
