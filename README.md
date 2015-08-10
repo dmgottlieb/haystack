@@ -1,10 +1,9 @@
 # Development roadmap
 
-In no particular order: 
+To do: 
 
-* Menu display
 
-* Ability to start and finish games w/o closing and restarting Haystack
+
 
 * Dynamic soundtrack
 
@@ -21,3 +20,9 @@ In no particular order:
 * Decide on a name
 
 * Decide on marketing / release plan (probably: free, haphazard)
+
+Done: 
+
+* Menu display
+
+* Ability to start and finish games w/o closing and restarting Haystack
