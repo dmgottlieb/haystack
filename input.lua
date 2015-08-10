@@ -10,7 +10,7 @@ function UpdatePlayer(p,dt)
 		p.canAttack = true
 	end
 	
-	if SwordButton(p) and p.canAttack == true then
+	if SwordButton(p.controller) and p.canAttack == true then
 		sword = {player = p, theta = 0, offset = p.direction}
 		table.insert(Swords, sword)
 
@@ -28,8 +28,8 @@ end
 function GetPlayerMomentum(p)
 	dx, dy = 0,0
 	
-	dx = RightPush(p) - LeftPush(p)
-	dy = DownPush(p) - UpPush(p)
+	dx = RightPush(p.controller) - LeftPush(p.controller)
+	dy = DownPush(p.controller) - UpPush(p.controller)
 	
 	return Vector:new(dx, dy)
 	
