@@ -41,8 +41,11 @@ class LogReader(object):
 
 		for e in self.events:
 			if e['event'] == 'position':
-				x, y = int(e['x']), int(e['y'])
-				locations.append((x,y))
+				try: 
+					x, y = int(e['x']), int(e['y'])
+					locations.append((x,y))
+				except: 
+					pass
 
 		return locations
 

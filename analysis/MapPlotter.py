@@ -42,7 +42,7 @@ class MapPlotter(object):
 				xrange = p.x - x
 				yrange = int(sqrt((RADIUS^2) - (xrange^2) + .01) + 0.5)
 				for y in range(p.y-yrange, p.y+yrange):
-					if (x > 0) and (y > 0):
+					if (x > 0) and (x < 32) and (y > 0) and (y < 32):
 						data[y,x] = self.locations[p]
 		
 
@@ -58,11 +58,11 @@ class MapPlotter(object):
 
 		data = np.zeros( (self.height / 24,self.width / 24), dtype=np.uint8 )
 		for p in self.locations.keys():
-			if (p.x > 0) and (p.y > 0):
+			if (p.x > 0) and (p.x < 1280) and (p.y > 0) and (p.y < 768):
 				x, y = int(p.x / 24), int(p.y / 24)
 				data[y,x] = self.locations[p]
 
-		N = 255.0 * (1.0 / np.amax(data))
+		N = 10 *  255.0 * (1.0 / np.amax(data))
 
 		data = N * data
 
