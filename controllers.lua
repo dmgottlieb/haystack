@@ -25,6 +25,32 @@ function LeftPush(controller)
 	
 end
 
+-- Gets discrete "press" signal in left direction
+function LeftSelect(controller) 
+
+
+	--keyboard arrows
+	if controller==1 then
+		if love.keyboard.isDown('left') then
+			return 1
+		end
+
+	-- keyboard wasd		
+	elseif controller==2 then
+		if love.keyboard.isDown('a') then
+			return 1
+		end
+	
+	else
+		local joystick = Joysticks[controller - 2]
+		return math.max(-joystick:getGamepadAxis("leftx"), 0)
+	end
+	
+
+	return 0
+
+end
+
 function RightPush(controller)
 	
 	--keyboard arrows
@@ -45,6 +71,31 @@ function RightPush(controller)
 	
 	return 0
 	
+end
+
+function RightSelect(controller) 
+
+
+	--keyboard arrows
+	if controller==1 then
+		if love.keyboard.isDown('right') then
+			return 1
+		end
+
+	-- keyboard wasd		
+	elseif controller==2 then
+		if love.keyboard.isDown('d') then
+			return 1
+		end
+	
+	else
+		local joystick = Joysticks[controller - 2]
+		return math.max(joystick:getGamepadAxis("leftx"), 0)
+	end
+	
+
+	return 0
+
 end
 
 function DownPush(controller)
@@ -69,6 +120,31 @@ function DownPush(controller)
 	
 end
 
+function DownSelect(controller) 
+
+
+	--keyboard arrows
+	if controller==1 then
+		if love.keyboard.isDown('down') then
+			return 1
+		end
+
+	-- keyboard wasd		
+	elseif controller==2 then
+		if love.keyboard.isDown('s') then
+			return 1
+		end
+	
+	else
+		local joystick = Joysticks[controller - 2]
+		return math.max(joystick:getGamepadAxis("lefty"), 0)
+	end
+	
+
+	return 0
+
+end
+
 function UpPush(controller)
 	
 	--keyboard arrows
@@ -89,6 +165,31 @@ function UpPush(controller)
 	
 	return 0
 	
+end
+
+function UpSelect(controller) 
+
+
+	--keyboard arrows
+	if controller==1 then
+		if love.keyboard.isDown('up') then
+			return 1
+		end
+
+	-- keyboard wasd		
+	elseif controller==2 then
+		if love.keyboard.isDown('w') then
+			return 1
+		end
+	
+	else
+		local joystick = Joysticks[controller - 2]
+		return math.max(-joystick:getGamepadAxis("lefty"), 0)
+	end
+	
+
+	return 0
+
 end
 
 function SwordButton(controller)

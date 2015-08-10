@@ -4,28 +4,36 @@
 
 NewGameItem = {
 	text = "NEW GAME",
-	action = function(upordown) end
+	action = function(self, upordown) 
+			local num_players = Overlay.menuItems[2].disp
+			local num_NPCs = Overlay.menuItems[3].disp 
+			Game.NewGame(num_players, num_NPCs)
+		end
 }
 
 NumPlayersItem = {
 	text = "2 PLAYERS",
 	num = 2,
+	disp = 2,
 	action = function(self, upordown) 
 			self.num = self.num + upordown
 			self.num = math.max(self.num, 2)
 			self.num = math.min(self.num, 4)
-			self.text = "" .. self.num .. " PLAYERS"
+			self.disp = math.ceil(self.num)
+			self.text = "" .. self.disp .. " PLAYERS"
 		end
 }
 
 NumNPCsItem = {
 	text = "20 NPCs",
 	num = 20,
+	disp = 20,
 		action = function(self, upordown) 
 			self.num = self.num + upordown
 			self.num = math.max(self.num, 0)
 			self.num = math.min(self.num, 100)
-			self.text = "" .. self.num .. " NPCs"
+			self.disp = math.ceil(self.num)
+			self.text = "" .. self.disp .. " NPCs"
 		end
 }
 
@@ -65,10 +73,12 @@ function Overlay:drawMenu()
 	love.graphics.setColor(220,220,130,200)
 	love.graphics.printf(self.title, 100, 100, 540, 'center', 0, 2)
 
+	active = math.ceil(self.activeItem)
+
 	
 	for i,item in ipairs(self.menuItems) do 
 		love.graphics.setColor(245,245,245,128)
-		if i == math.ceil(self.activeItem) then
+		if i == active then
 			love.graphics.setColor(245,245,245,255)
 		end
 		love.graphics.printf(item.text, 100, 148 + 52*i, 540, 'center', 0, 2)
@@ -90,20 +100,23 @@ end
 function Overlay:getInput()
 
 	num_controllers = 2
-	item = math.ceil(Overlay.activeItem)
+	item = math.ceil(self.activeItem)
 
 	for i=1,num_controllers do
-		if UpPush(i) > 0.9 then 
-			Overlay:changeMenuSelection(-0.2 * UpPush(i)) 
+		if UpSelect(i) > 0.5 then 
+			Overlay:changeMenuSelection(- 0.2) 
 		end
-		if DownPush(i) > 0.9 then 
-			Overlay:changeMenuSelection(0.2*DownPush(i)) 
+		if DownSelect(i) > 0.5 then 
+			Overlay:changeMenuSelection(0.2) 
 		end
-		if RightPush(i) > 0.5 then
-			Overlay.menuItems[item]:action(1)
+		if RightSelect(i) > 0.5 then
+			Overlay.menuItems[item]:action(0.2)
 		end
-		if LeftPush(i) > 0.5 then
-			Overlay.menuItems[item]:action(-1)
+		if LeftSelect(i) > 0.5 then
+			Overlay.menuItems[item]:action(-0.2)
+		end
+		if SwordButton(i) then
+			Overlay.menuItems[item]:action(0)
 		end
 
 	end
