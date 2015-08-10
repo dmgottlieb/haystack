@@ -9,6 +9,7 @@ require"score"
 require"Vector"
 require"map-functions"
 require"Logger"
+require"Overlay"
 
 
 
@@ -24,7 +25,7 @@ function love.load(arg)
 	WIDTH = love.graphics.getWidth()
 	HEIGHT = love.graphics.getHeight()
 	
-	love.graphics.setBackgroundColor(100,225,85)
+	-- love.graphics.setBackgroundColor(100,225,85)
 	font = love.graphics.newFont("assets/pcsenior.ttf", 24)
 	love.graphics.setFont(font)
 	
@@ -46,6 +47,8 @@ function love.load(arg)
 	cmts = table.concat(arg, ' ')
 	Log = Logger:new(MAP, cmts)
 	Log:addEvent("start","","","",os.time(),"")
+
+
 	
 end
 
@@ -81,11 +84,14 @@ end
 
 function love.draw(dt)
 
+	love.graphics.setColor(255,255,255,255)
 	drawMap()
 	DrawCharacters(Characters)
 	DrawSwords(Swords)
 
 	DrawScore(PCs)
+
+	Overlay:draw()
 
 
 end
@@ -94,6 +100,11 @@ function love.update(dt)
 	
 	-- If 'esc' is pressed, launch debug console
 	debugLoop()
+
+	-- If menu is active, run menu input loop
+	if Overlay.menuOn then
+		Overlay:getInput()
+	end
 
 	-- Collisions
 	DoCharacterCollisions(Characters)
