@@ -26,12 +26,15 @@ function PC:walk(dt, pace)
 	
 	self.position = (self.position + self.momentum:scale(dt))
 
+	if Game.live then
+		self.momentum = GetPlayerMomentum(self)
+		self.momentum.x = self.momentum.x*pace
+		self.momentum.y = self.momentum.y*pace
 
-	self.momentum = GetPlayerMomentum(self)
-	self.momentum.x = self.momentum.x*pace
-	self.momentum.y = self.momentum.y*pace
+		UpdatePlayer(self, dt)
 
-	UpdatePlayer(self, dt)
+	end 
+	
 end
 
 function PC:new()
