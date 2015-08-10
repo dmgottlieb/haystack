@@ -80,7 +80,21 @@ function love.draw(dt)
 
 	love.graphics.setColor(255,255,255,255)
 	drawMap()
-	DrawCharacters(Characters)
+
+	local corpses = {}
+	local alive = {}
+
+	for i,c in ipairs(Characters) do
+		if c.alive then 
+			table.insert(alive,c) 
+		else
+			table.insert(corpses,c)
+		end
+	end
+
+	DrawCharacters(corpses)
+	DrawCharacters(alive)
+	
 	DrawSwords(Swords)
 
 	DrawScore(PCs)
