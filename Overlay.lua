@@ -5,9 +5,11 @@
 NewGameItem = {
 	text = "NEW GAME",
 	action = function(self, upordown) 
+			if not (upordown == 1) then return nil end
 			local num_players = Overlay.menuItems[2].disp
 			local num_NPCs = Overlay.menuItems[3].disp 
-			Game.NewGame(num_players, num_NPCs)
+			local first_to = Overlay.menuItems[4].disp
+			Game:NewGame(num_players, num_NPCs, first_to, false, true)
 		end
 }
 
@@ -37,12 +39,27 @@ NumNPCsItem = {
 		end
 }
 
+FirstToItem = {
+	text = "3 POINTS TO WIN",
+	num = 3,
+	disp = 3,
+		action = function(self, upordown) 
+			self.num = self.num + upordown
+			self.num = math.max(self.num, 1)
+			self.num = math.min(self.num, 10)
+			self.disp = math.ceil(self.num)
+			self.text = "" .. self.disp .. " POINTS TO WIN"
+		end
+
+
+}
+
 Overlay = {
 	
 	menuOn = true,
-	menuItems = {NewGameItem, NumPlayersItem, NumNPCsItem},
+	menuItems = {NewGameItem, NumPlayersItem, NumNPCsItem, FirstToItem},
 	title = "HAYSTACK TACTICS",
-	scoreOn = true,
+	scoreOn = false,
 	activeItem = 1
 }
 
@@ -116,7 +133,7 @@ function Overlay:getInput()
 			Overlay.menuItems[item]:action(-0.2)
 		end
 		if SwordButton(i) then
-			Overlay.menuItems[item]:action(0)
+			Overlay.menuItems[item]:action(1)
 		end
 
 	end

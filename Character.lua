@@ -113,8 +113,10 @@ function Character:SheepFlock(dt)
 			distance = self.position:distance(d.position)
 			angle = math.abs((d.position - self.position):angle() - self.direction)
 		
-			if (distance < FLOCK_NEIGHBORHOOD) and (angle < FLOCK_NEIGHBORHOOD_ANGLE) then
-				table.insert(neighbors, d)
+			if (distance < FLOCK_NEIGHBORHOOD) 
+				and (angle < FLOCK_NEIGHBORHOOD_ANGLE) 
+				and (d.alive) then
+					table.insert(neighbors, d)
 			end
 			
 		end

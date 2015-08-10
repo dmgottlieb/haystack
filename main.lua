@@ -10,6 +10,7 @@ require"Vector"
 require"map-functions"
 require"Logger"
 require"Overlay"
+require"Game"
 
 
 
@@ -32,21 +33,15 @@ function love.load(arg)
 	SheepImage = love.graphics.newImage("assets/sheep-s.png")
 	DeadSheepImage = love.graphics.newImage("assets/deadsheep-s.png")
 	
-	Characters = MakeCharacters(NUM_NPCS)
+	Characters = {}
 	Swords = {}
-
-	
-	PCs = makePCs(NUM_PCS)
-	for i,c in ipairs(PCs) do
-		table.insert(Characters,c)
-	end
-
+	PCs = {}
 	Joysticks = {}
 
+	CMTS = table.concat(arg, ' ')
 
-	cmts = table.concat(arg, ' ')
-	Log = Logger:new(MAP, cmts)
-	Log:addEvent("start","","","",os.time(),"")
+
+	Game:NewGame(NUM_PCS, NUM_NPCS, 3, true, false)
 
 
 	
@@ -66,10 +61,9 @@ end
 
 
 -- On quit, attempt to save game log.
-function love.quit()
-	Log:addEvent("quit","","","",os.time(),"")
-	Log:writeLog()
-end
+--function love.quit()
+-- Deprecated: now log on end game
+--end
 
 function LoadParameters()
 	-- loads all parameters. 
@@ -105,6 +99,8 @@ function love.update(dt)
 	if Overlay.menuOn then
 		Overlay:getInput()
 	end
+
+	Game:CheckState()
 
 	-- Collisions
 	DoCharacterCollisions(Characters)
