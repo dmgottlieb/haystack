@@ -1,0 +1,13 @@
+-- Superlatives.lua
+-- 
+-- Computes endgame superlatives to display at game over screen, e.g. "most friendly," 
+-- "most aggressive," "most solitary," "sneakiest," "best dodger." 
+--
+-- The idea is: each game, the game computes all the superlatives and displays the ~3 
+-- most interesting ones. 
+-- 
+-- Most interesting might be: 
+-- * those with widest separation between first and second place
+-- * those which have not been displayed recently
+-- * there should probably be some random element
+
