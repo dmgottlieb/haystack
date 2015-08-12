@@ -92,12 +92,21 @@ function makePCs(numPCs)
 		{x = -50, y = 400},
 		{x = -50, y = 600}
 	}
+
+	colors = {
+	{255, 255, 0},
+	{127, 255, 127},
+	{255, 127, 127},
+	{127, 127, 255}
+	
+	}
 	
 	for i = 1, numPCs do
 		local c = PC:new()
 		c.controller = i
 		c.score = 0
 		c.position = Vector:new(positions[i].x, positions[i].y)
+		c.color = colors[i]
 		c.baaTimer = BAA_TIMER_MAX
 		table.insert(PCs,c)
 	end
