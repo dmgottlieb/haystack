@@ -3,3 +3,5 @@ parameters.lua
 *.pxi
 ./logs/*
 *.pyc
+*.png
+*.bmp
