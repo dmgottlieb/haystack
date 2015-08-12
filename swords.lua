@@ -3,12 +3,18 @@ function DrawSword(s)
 	
 	direction = {x = math.cos(radians), y = math.sin(radians)}
 	
-	hilt = {x = s.player.position.x + SIZE * direction.x + 1, y = s.player.position.y + SIZE * direction.y + 1}
+	hilt = {x = s.player.position.x + (SIZE / 2) * direction.x + 1, y = s.player.position.y + SIZE * direction.y + 1}
 	tip = {x = s.player.position.x + (SIZE + SWORD_LENGTH) * direction.x, y = s.player.position.y + (SIZE + SWORD_LENGTH) * direction.y}
 	
 	r,g,b = s.player.color[1], s.player.color[2], s.player.color[3]
 	love.graphics.setColor(r,g,b)
-	love.graphics.setLineWidth(3)
+
+	-- frame = math.ceil(9 * s.theta / 360)
+	-- local img  = love.graphics.newImage("assets/swordsheet.png")
+	-- local quad = love.graphics.newQuad((frame-1)*78, 0, 78, 55, img:getDimensions())
+	-- love.graphics.draw(img, quad, hilt.x, hilt.y, math.rad(s.player.direction),1,1, 26, 15)
+
+	love.graphics.setLineWidth(5)
 	love.graphics.line(hilt.x, hilt.y, tip.x, tip.y)
 end
 
@@ -23,7 +29,7 @@ end
 function UpdateSwords(S, dt)
 
 	for i, s in ipairs(S) do
-		if s.theta >= 360 then
+		if s.theta >= SWORD_RANGE then
 			table.remove(S,i)
 		else
 			UpdateSword(s, dt)

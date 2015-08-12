@@ -11,7 +11,7 @@ function UpdatePlayer(p,dt)
 	end
 	
 	if SwordButton(p.controller) and p.canAttack == true then
-		sword = {player = p, theta = 0, offset = p.direction}
+		sword = {player = p, theta = -SWORD_RANGE, offset = p.direction}
 		table.insert(Swords, sword)
 
 		-- log sword attack
