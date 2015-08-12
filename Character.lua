@@ -307,4 +307,28 @@ function Character:die()
 
 end
 
+function Character:getNeighbors()
+	neighbors = {}
+	
+	for i,d in ipairs(Characters) do
+		
+		if self ~= d then
+
+			distance = self.position:distance(d.position)
+			angle = math.abs((d.position - self.position):angle() - self.direction)
+		
+			if (distance < FLOCK_NEIGHBORHOOD) 
+				and (angle < FLOCK_NEIGHBORHOOD_ANGLE) 
+				and (d.alive) then
+					table.insert(neighbors, d)
+			end
+			
+		end
+		
+	end
+
+	return neighbors
+
+end
+
 
