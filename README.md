@@ -23,6 +23,8 @@ To do:
 
 * Should the player be able to baaa? 
 
+* There should be more than one map
+
 
 * Art overhaul
 
