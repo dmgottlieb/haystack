@@ -95,6 +95,29 @@ function GetWinners(pcs)
 
 end
 
+-- Returns the top num most interesting superlatives
+function GetTopSups(pcs, num)
+
+	sups = GetWinners(pcs)
+	local f = function(c,d) 
+		if c.delta > d.delta then
+			return c
+		else
+			return d
+		end
+
+	sorted = table.sort(sups, f)
+
+	top = {}
+
+	for i = 1,num do 
+		table.insert(top, sorted[i])
+	end
+
+	return top
+
+end
+
 -- Call with s:add(c,dt) to update s.value
 function FriendlyAdd(self,c,dt) 
 	
