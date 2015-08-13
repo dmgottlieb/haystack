@@ -116,7 +116,7 @@ end
 
 function Overlay:getInput()
 
-	num_controllers = 2
+	num_controllers = 2 + table.getn(Joysticks)
 	item = math.ceil(self.activeItem)
 
 	for i=1,num_controllers do
