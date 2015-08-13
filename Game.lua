@@ -52,9 +52,10 @@ function Game:EndGame()
 	Log:writeLog()
 
 	self.live = false
-	Overlay.menuOn = true
+	-- Overlay.menuOn = true
 
 	--Game:NewGame(self.num_pcs, self.num_npcs, self.first_to, true, false)
+
 
 end
 
@@ -64,7 +65,7 @@ function Game:CheckState()
 
 		if p.score >= self.first_to then
 			self:EndGame()
-			return nil
+			return true
 		end
 
 	end

@@ -100,18 +100,15 @@ function GetTopSups(pcs, num)
 
 	sups = GetWinners(pcs)
 	local f = function(c,d) 
-		if c.delta > d.delta then
-			return c
-		else
-			return d
-		end
+			return c.delta < d.delta
+	end
 
-	sorted = table.sort(sups, f)
+	table.sort(sups, f)
 
 	top = {}
 
 	for i = 1,num do 
-		table.insert(top, sorted[i])
+		table.insert(top, sups[i])
 	end
 
 	return top

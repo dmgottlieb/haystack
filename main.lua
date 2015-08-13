@@ -11,6 +11,7 @@ require"map-functions"
 require"Logger"
 require"Overlay"
 require"Game"
+require"GameOver"
 
 
 
@@ -40,7 +41,7 @@ function love.load(arg)
 
 	CMTS = table.concat(arg, ' ')
 
-
+	Screen = Overlay
 	Game:NewGame(NUM_PCS, NUM_NPCS, 3, true, false)
 
 
@@ -92,7 +93,7 @@ function love.draw(dt)
 
 	DrawScore(PCs)
 
-	Overlay:draw()
+	Screen:draw()
 
 
 end
@@ -107,7 +108,9 @@ function love.update(dt)
 		Overlay:getInput()
 	end
 
-	Game:CheckState()
+	if Game:CheckState() then
+		Screen = GameOver:new()
+	end
 
 	-- Collisions
 	DoCharacterCollisions(Characters)

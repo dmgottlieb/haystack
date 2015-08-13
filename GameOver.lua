@@ -19,10 +19,11 @@ function GameOver:DrawText()
 	love.graphics.setColor(220,220,130,200)
 	love.graphics.printf("GAME OVER", 100, 100, 540, 'center', 0, 2)
 	
-	for i,item in ipairs(self.menuItems) do 
+	for i,item in ipairs(self.items) do 
 		love.graphics.setColor(245,245,245,128)
 
-		love.graphics.printf(item.text, 100, 148 + 52*i, 540, 'center', 0, 2)
+		text = item.text .. tostring(item.value)
+		love.graphics.printf(text, 100, 148 + 52*i, 540, 'center', 0, 2)
 	end
 
 
@@ -47,7 +48,7 @@ function GameOver:new()
 	end
 
 	winner_text = "WINNER: "
-	table.insert(items, {text=winner_text, value=winner})
+	table.insert(self.items, {text=winner_text, value=winner})
 
 	sups = GetTopSups(PCs, 3)
 
@@ -56,6 +57,7 @@ function GameOver:new()
 			text = s.title .. ": ",
 			value = s.winner
 		}
+		table.insert(self.items, item)
 
 	end
 
