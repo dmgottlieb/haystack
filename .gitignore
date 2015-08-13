@@ -5,3 +5,4 @@ parameters.lua
 *.pyc
 *.png
 *.bmp
+buildinfo

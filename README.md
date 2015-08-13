@@ -18,7 +18,6 @@ To do:
 * Put draw / update loop inside conditional game-state switch
 
 
-* Add some kind of version record to logs
 
 * Art overhaul
 
@@ -37,3 +36,6 @@ Done:
 * Change the sword behavior so it is more intuitive and less invincible
 
 * Make swords colorful
+
+* Add some kind of version record to logs
+
