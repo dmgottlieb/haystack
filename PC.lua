@@ -68,10 +68,12 @@ end
 function makePCs(numPCs)
 	PCs = {}
 	
-	positions = {
-		{x = -50, y = 400},
-		{x = -50, y = 600}
-	}
+	-- positions = {
+	-- 	{x = -50, y = 150},
+	-- 	{x = -50, y = 300},
+	-- 	{x = -50, y = 450},
+	-- 	{x = -50, y = 600}
+	-- }
 
 	colors = {
 	{255, 255, 0},
@@ -85,7 +87,8 @@ function makePCs(numPCs)
 		local c = PC:new()
 		c.controller = i
 		c.score = 0
-		c.position = Vector:new(positions[i].x, positions[i].y)
+		y = math.random(50, HEIGHT - 50)
+		c.position = Vector:new(-50, y)
 		c.color = colors[i]
 		c.baaTimer = BAA_TIMER_MAX
 		c.ss = MakeSuperlatives()
