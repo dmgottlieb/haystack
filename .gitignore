@@ -6,3 +6,5 @@ parameters.lua
 *.png
 *.bmp
 buildinfo
+*.love
+*.love

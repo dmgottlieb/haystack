@@ -17,6 +17,11 @@ To do:
 
 * Put draw / update loop inside conditional game-state switch
 
+* Should there be a speech-bubble for baaa? 
+
+* Should baaa attract other sheep? 
+
+* Should the player be able to baaa? 
 
 
 * Art overhaul
