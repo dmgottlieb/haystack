@@ -103,6 +103,8 @@ function love.update(dt)
 	-- If 'esc' is pressed, launch debug console
 	debugLoop()
 
+	Screen:update(dt)
+
 	-- If menu is active, run menu input loop
 	if Overlay.menuOn then
 		Overlay:getInput()

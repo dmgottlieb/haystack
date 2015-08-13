@@ -4,7 +4,8 @@
 
 GameOver = {
 	winner = 0,
-	items = {}
+	items = {},
+	wiggle = 0
 }
 
 function GameOver:draw()
@@ -13,17 +14,27 @@ function GameOver:draw()
 
 end
 
+function GameOver:update(dt)
+
+	self.wiggle = self.wiggle + PACE * dt
+
+end
+
 function GameOver:DrawText()
 
+	theta = WIGGLE_RANGE * math.sin(self.wiggle)
 
 	love.graphics.setColor(220,220,130,200)
-	love.graphics.printf("GAME OVER", 100, 100, 540, 'center', 0, 2)
+	love.graphics.printf("GAME OVER", 100, 100, 540, 'right', 0, 2)
 	
 	for i,item in ipairs(self.items) do 
 		love.graphics.setColor(245,245,245,128)
 
-		text = item.text .. tostring(item.value)
-		love.graphics.printf(text, 100, 148 + 52*i, 540, 'center', 0, 2)
+		text = item.text .. "   "
+		love.graphics.printf(text, 100, 148 + 52*i, 540, 'right', 0, 2)
+		color = PCs[item.value].color
+		love.graphics.setColor(color[1], color[2], color[3])
+		love.graphics.draw(SheepImage, 1200, 175 + 52*i, theta, 1,1, 26, 15)
 	end
 
 
@@ -38,6 +49,7 @@ function GameOver:new()
 	self.items = {}
 
 	score = 0
+	winner = 1
 
 	for i,p in ipairs(PCs) do
 

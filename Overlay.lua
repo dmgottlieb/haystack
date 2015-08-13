@@ -138,3 +138,7 @@ function Overlay:getInput()
 
 	end
 end
+
+function Overlay:update(dt)
+
+end
