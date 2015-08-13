@@ -11,11 +11,12 @@ To do:
 
 * Add random events to destabilize lurking equilibria
 
-* Change the sword behavior so it is more intuitive and less invincible
+* Make configs a dict-style table
 
-* Make swords colorful
+* Fix the game-over logic
 
-* Add gameover / score screen
+* Put draw / update loop inside conditional game-state switch
+
 
 * Add some kind of version record to logs
 
@@ -30,3 +31,9 @@ Done:
 * Menu display
 
 * Ability to start and finish games w/o closing and restarting Haystack
+
+* Add gameover / score screen
+
+* Change the sword behavior so it is more intuitive and less invincible
+
+* Make swords colorful

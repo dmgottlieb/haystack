@@ -17,8 +17,9 @@ function Logger:new(map, cmts)
 
 	-- Idea: initialize log header with automatic version info from git hook
 	-- Also: what map is being played
+	version = love.filesystem.lines("buildinfo")[1]
 	o.map = "-- map=" .. map .. "\n"
-	o.header = o.header .. "-- " .. cmts .. "\n" 
+	o.header = o.header .. "-- " .. version .. "\n" .. "-- " .. cmts .. "\n" 
 	return o
 end
 
