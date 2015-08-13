@@ -42,7 +42,7 @@ function Logger:writeLog()
 	
 	-- Create logs folder if necessary. 
 	if not love.filesystem.exists("logs") then
-		love.filesystem.makeDirectory("logs")
+		love.filesystem.createDirectory("logs")
 	end
 
 	-- get configs for this game
